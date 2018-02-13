@@ -1,2 +1,2 @@
 # Google Code Jam
-###let's coding together!
+### let's coding together!
