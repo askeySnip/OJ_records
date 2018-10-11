@@ -103,12 +103,12 @@ int main() {
 			}
 		}
 		vector<char> ans;
-		for(int i=0; i<bc.size(); i++){
+		for(int i=0; i<(int)bc.size(); i++){
 			ans.push_back(recognize(bc[i]));
 		}
 		sort(ans.begin(), ans.end());
 		printf("Case %d: ", ++kase);
-		for(int i=0; i<ans.size(); i++){
+		for(int i=0; i<(int)ans.size(); i++){
 			printf("%c", ans[i]);
 		}
 		printf("\n");
