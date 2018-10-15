@@ -21,45 +21,30 @@ using namespace std;
 typedef vector<int> vi;
 typedef pair<int, int> ii;
 typedef vector<pair<int, int> > vii;
+char g[105][105];
 int n;
-char graph[103][103];
-int counts[103];
-int color[103][103];
-int dirx[4] = {0, 1};
-int diry[4] = {1, 0};
-int dfs(int x, int y, int id) {
-  color[x][y] = id;
-  int ret = 1;
-  if(graph[x][y] == 'x') counts[id] = 1;
-  for(int i=0; i<2; i++) {
-    int tx = x + dirx[i];
-    int ty = y + diry[i];
-    if(tx>=0 && tx<n && ty>=0 && ty<n && graph[tx][ty] != '.' && color[tx][ty] == 0){
-      ret += dfs(tx, ty, id);
-    }
-  }
-  return ret;
+void dfs(int i, int j) {
+    if(i >= n || j >= n || i < 0 || j < 0)
+        return;
+    if(g[i][j] == '.')  return;
+    g[i][j] = '.';
+    dfs(i+1, j);
+    dfs(i-1, j);
+    dfs(i, j+1);
+    dfs(i, j-1);
 }
 int main() {
-  int t;
-  scanf("%d", &t);
-  for(int kase = 1; kase<=t; kase++) {
-    scanf("%d", &n);
-    for(int i=0; i<n; i++) scanf("%s", graph[i]);
-    memset(counts, 0, sizeof counts);
-    memset(color, 0, sizeof color);
-    int color_num = 1;
-    int ans = 0;
-    for(int i=0; i<n; i++) {
-      for(int j=0; j<n; j++) {
-        if(color[i][j] || graph[i][j] == '.') continue;
-        int l = dfs(i, j, color_num);
-        if(l > n/2) counts[color_num] = 0;
-        color_num++;
-      }
+    int cases = 0, i, j;
+    scanf("%*d");
+    while(scanf("%d", &n) == 1) {
+        for(i = 0; i < n; i++)
+            scanf("%s", g[i]);
+        int res = 0;
+        for(i = 0; i < n; i++)
+            for(j = 0; j < n; j++)
+                if(g[i][j] == 'x')
+                    res++, dfs(i, j);
+        printf("Case %d: %d\n", ++cases, res);
     }
-    for(int i=1; i<=color_num; i++) ans += counts[i];
-    printf("Case %d: %d\n", kase, ans);
-  }
-  return 0;
+    return 0;
 }
