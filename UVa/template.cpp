@@ -23,7 +23,7 @@ typedef pair<int, int> ii;
 typedef vector<pair<int, int> > vii;
 
 // struct
-
+#define inf 1e9
 
 // data
 
