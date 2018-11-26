@@ -88,7 +88,7 @@ int main() {
       edges[j+m].push_back(k);
       edges[k].push_back(j+m);
       edges[k+m].push_back(j);
-      edges[j].push_back(k+m);
+      edges[j].push_back(k+m);  // notice: there should add four edges for 2 forward edges and 2 backward edges.
     }
     max_flow();
     printf("%d\n", mf);

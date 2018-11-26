@@ -16,11 +16,13 @@ LANG: C++11
 #include <queue>
 #include <cmath>
 #include <bitset>
+#include <list>
 
 using namespace std;
 typedef vector<int> vi;
 typedef pair<int, int> ii;
 typedef vector<pair<int, int> > vii;
+typedef long long ll;
 
 // struct
 #define inf 1e9
