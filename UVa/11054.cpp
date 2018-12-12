@@ -26,12 +26,20 @@ typedef long long ll;
 
 // struct
 #define inf 1e9
-#define REP(i, a, b) for(int i = int(a); i < int(b); i++)
 
 // data
-
+int n;
 
 int main() {
-
+  while(scanf("%d", &n), n){
+    int t;
+    ll ans = 0, last = 0;;
+    for(int i=0; i<n; i++) {
+      ans += abs(last);
+      scanf("%d", &t);
+      last += t;
+    }
+    printf("%lld\n", ans);
+  }
   return 0;
 }

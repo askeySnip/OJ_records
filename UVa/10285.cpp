@@ -61,7 +61,7 @@ int main() {
     }
     reverse(path.begin(), path.end());
     dist.assign(r*c, 1);
-    int ans = 0;
+    int ans = 1;
     for(int i=0; i<(int)path.size(); i++) {
       int u = path[i];
       if(u%c  && graph[u] > graph[u-1]) dist[u-1] = max(dist[u-1], dist[u]+1), ans = max(ans, dist[u-1]);

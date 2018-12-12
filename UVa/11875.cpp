@@ -32,6 +32,14 @@ typedef long long ll;
 
 
 int main() {
-
+  int t, n;
+  scanf("%d", &t);
+  int kase = 0;
+  int a[20];
+  while (t--) {
+    scanf("%d", &n);
+    REP(i, 0, n) scanf("%d", &a[i]);
+    printf("Case %d: %d\n", ++kase, a[n/2]);
+  }
   return 0;
 }

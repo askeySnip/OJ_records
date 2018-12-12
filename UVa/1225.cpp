@@ -29,9 +29,29 @@ typedef long long ll;
 #define REP(i, a, b) for(int i = int(a); i < int(b); i++)
 
 // data
+vi nums;
 
+void deal(int n) {
+  while(n) {
+    nums[n%10]++;
+    n/=10;
+  }
+}
 
 int main() {
-
+  int t, n;
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d", &n);
+    nums.assign(10, 0);
+    REP(i, 1, n+1) {
+      deal(i);
+    }
+    REP(i, 0, 10) {
+      if(i) printf(" ");
+      printf("%d", nums[i]);
+    }
+    printf("\n");
+  }
   return 0;
 }

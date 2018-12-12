@@ -32,6 +32,23 @@ typedef long long ll;
 
 
 int main() {
-
+  int n;
+  printf("PERFECTION OUTPUT\n"); // notice the special case: n = 1, DEFICIENT
+  while(scanf("%d", &n), n) {
+    int ans = 0, i;
+    for(i=2; i * i < n; i++) {
+      if(n % i == 0) {
+        ans += i;
+        ans += n/i;
+      }
+    }
+    if(n != 1 && i * i == n) ans += i;
+    if(n != 1) ans += 1;
+    printf("%5d  ", n);
+    if(ans == n) printf("PERFECT\n");
+    else if (ans < n) printf("DEFICIENT\n");
+    else printf("ABUNDANT\n");
+  }
+  printf("END OF OUTPUT\n");
   return 0;
 }

@@ -32,6 +32,18 @@ typedef long long ll;
 
 
 int main() {
-
+  int r, n;
+  int kase = 0;
+  while(scanf("%d %d", &r, &n), r || n) {
+    int ans = -1;
+    REP(i, 0, 27) {
+      if(r <= n + n * i) {
+        ans = i;
+        break;
+      }
+    }
+    if (ans != -1) printf("Case %d: %d\n", ++kase, ans);
+    else printf("Case %d: impossible\n", ++kase);
+  }
   return 0;
 }
