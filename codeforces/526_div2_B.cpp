@@ -30,6 +30,23 @@ typedef long long ll;
 
 
 int main() {
-
+  ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+  ll n, s, sum = 0L, t, mint = inf;
+  cin >> n >> s;
+  REP(i, 0, n) {
+    cin >> t;
+    sum += t;
+    mint = min(mint, t);
+  }
+  if(sum < s) cout << "-1" << endl;
+  else {
+    if(sum-mint*n >= s) cout << mint << endl;
+    else {
+      s -= (sum - mint*n);
+      mint -= s / n;
+      if(s%n) mint--;
+      cout << mint << endl;
+    }
+  }
   return 0;
 }
