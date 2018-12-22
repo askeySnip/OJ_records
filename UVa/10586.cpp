@@ -33,20 +33,20 @@ typedef long long ll;
 
 int main() {
   int n, k;
+  ll a[10024];
   while(scanf("%d %d", &n, &k), n!=-1 && k!=-1) {
-    int a[10024];
+    memset(a, 0, sizeof a);
     REP(i, 0, n+1) {
-      scanf("%d", &a[i]);
+      scanf("%lld", &a[i]);
     }
     for(int i=n; i>=0; i--) {
       if(i < k) break;
-      if(a[i] == 0) continue;
       a[i-k] -= a[i];
       a[i] = 0;
     }
-    vi ans;
+    vector<ll> ans;
     bool flag = true;
-    for(int i=k-1; i>=0; i--) {
+    for(int i=k-1; i>=0; i--) { // notice: if doesn't clear a[] when k is bigger than last turn's n, if while make wrong answer.
       if(a[i] == 0 && flag) continue;
       if(a[i] && flag) {
         flag = false;
@@ -57,7 +57,7 @@ int main() {
     reverse(ans.begin(), ans.end());
     REP(i, 0, ans.size()) {
       if(i) printf(" ");
-      printf("%d", ans[i]);
+      printf("%lld", ans[i]);
     }
     printf("\n");
   }
