@@ -29,24 +29,32 @@ typedef long long ll;
 #define REP(i, a, b) for(int i = int(a); i < int(b); i++)
 
 // data
-
+int letters[26];
+ll fac[21];
+void generate_fac() {
+  fac[0] = fac[1] = 1;
+  REP(i, 2, 21) {
+    fac[i] = fac[i-1] * ll(i);
+  }
+}
 
 int main() {
+  char word[30];
   int n;
-  double costs[1024];
-  while(scanf("%d", &n), n) {
-    double sum = 0;
-    REP(i, 0, n) scanf("%lf", &costs[i]), sum += costs[i];
-    sum = round(sum*100.0/n)/100;
-    double ans1 = 0, ans2 = 0;
-    REP(i, 0, n) {
-      if(costs[i] > sum) {
-        ans1 += costs[i] - sum;
-      } else {
-        ans2 += sum - costs[i];
-      }
+  generate_fac();
+  scanf("%d", &n);
+  REP(i, 1, n+1) {
+    scanf("%s", word);
+    memset(letters, 0, sizeof(letters));
+    int len = strlen(word);
+    REP(j, 0, len) {
+      letters[word[j]-'A']++;
     }
-    printf("$%.2f\n", min(ans1, ans2));
+    ll ans = fac[len];
+    REP(j, 0, 26) {
+      ans /= fac[letters[j]];
+    }
+    printf("Data set %d: %lld\n", i, ans);
   }
   return 0;
 }

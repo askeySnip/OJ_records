@@ -29,24 +29,32 @@ typedef long long ll;
 #define REP(i, a, b) for(int i = int(a); i < int(b); i++)
 
 // data
+vi primes;
+bitset<1000003> vist;
 
+void generate_primes() {
+  vist.set();
+  vist[0] = vist[1] = 0;
+  for(ll i=2; i<1000003; i++){
+    if(vist[i]) {
+      primes.push_back(int(i));
+      for(ll j=i*i; j<1000003; j+=i) {
+        vist[j] = 0;
+      }
+    }
+  }
+}
 
 int main() {
   int n;
-  double costs[1024];
+  generate_primes();
   while(scanf("%d", &n), n) {
-    double sum = 0;
-    REP(i, 0, n) scanf("%lf", &costs[i]), sum += costs[i];
-    sum = round(sum*100.0/n)/100;
-    double ans1 = 0, ans2 = 0;
-    REP(i, 0, n) {
-      if(costs[i] > sum) {
-        ans1 += costs[i] - sum;
-      } else {
-        ans2 += sum - costs[i];
+    REP(i, 0, primes.size()) {
+      if(vist[n - primes[i]]) {
+        printf("%d = %d + %d\n", n, primes[i], n-primes[i]);
+        break;
       }
     }
-    printf("$%.2f\n", min(ans1, ans2));
   }
   return 0;
 }

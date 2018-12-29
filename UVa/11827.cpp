@@ -29,24 +29,36 @@ typedef long long ll;
 #define REP(i, a, b) for(int i = int(a); i < int(b); i++)
 
 // data
+int a[103];
 
+int gcd(int a, int b) {
+  if(b == 0) return a;
+  return gcd(b, a%b);
+}
 
 int main() {
   int n;
-  double costs[1024];
-  while(scanf("%d", &n), n) {
-    double sum = 0;
-    REP(i, 0, n) scanf("%lf", &costs[i]), sum += costs[i];
-    sum = round(sum*100.0/n)/100;
-    double ans1 = 0, ans2 = 0;
-    REP(i, 0, n) {
-      if(costs[i] > sum) {
-        ans1 += costs[i] - sum;
-      } else {
-        ans2 += sum - costs[i];
+  scanf("%d", &n);
+  REP(i, 0, n) {
+    int cnt = 0;
+    char c;
+    // scanf("%d", &a[cnt++]);
+    // while((c=getchar()) != '\n') {
+    //   scanf("%d", &a[cnt++]);
+    // }
+    while(true) {
+      scanf("%d", &a[cnt++]);
+      while((c=getchar()) == ' ');
+      ungetc(c, stdin);
+      if(c == 10 || c == -1) break;
+    }
+    int ans = 0;
+    REP(j, 0, cnt) {
+      REP(k, j+1, cnt) {
+        ans = max(ans, gcd(a[j], a[k]));
       }
     }
-    printf("$%.2f\n", min(ans1, ans2));
+    printf("%d\n", ans);
   }
   return 0;
 }

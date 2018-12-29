@@ -32,21 +32,27 @@ typedef long long ll;
 
 
 int main() {
-  int n;
-  double costs[1024];
-  while(scanf("%d", &n), n) {
-    double sum = 0;
-    REP(i, 0, n) scanf("%lf", &costs[i]), sum += costs[i];
-    sum = round(sum*100.0/n)/100;
-    double ans1 = 0, ans2 = 0;
+  int t, n;
+  scanf("%d", &t);
+  int counts[103];
+  int kase = 0;
+  while(t--) {
+    memset(counts, 0, sizeof counts);
+    scanf("%d", &n);
+    int a;
     REP(i, 0, n) {
-      if(costs[i] > sum) {
-        ans1 += costs[i] - sum;
-      } else {
-        ans2 += sum - costs[i];
+      REP(j, 0, n) {
+        scanf("%d", &a);
+        counts[a]++;
       }
     }
-    printf("$%.2f\n", min(ans1, ans2));
+    bool flag = true;
+    REP(i, 0, 103) {
+      if(counts[i] > n) flag = false;
+    }
+
+    if(flag) printf("Case %d: yes\n", ++kase);
+    else printf("Case %d: no\n", ++kase);
   }
   return 0;
 }

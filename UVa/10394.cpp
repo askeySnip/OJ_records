@@ -29,24 +29,30 @@ typedef long long ll;
 #define REP(i, a, b) for(int i = int(a); i < int(b); i++)
 
 // data
+vii twin_primes;
+bitset<20000010> bs;
 
+void generate_twin_primes() {
+  twin_primes.push_back(ii(0, 0));
+  bs.set();
+  bs[0] = bs[1] = 0;
+  int last = -1;
+  for(ll i=2; i<20000010; i++) {
+    if(bs[i]) {
+      for(ll j=i*i; j<20000010; j+=i) {
+        bs[j] = 0;
+      }
+      if(i - last == 2) twin_primes.push_back(ii(last, i));
+      last = i;
+    }
+  }
+}
 
 int main() {
-  int n;
-  double costs[1024];
-  while(scanf("%d", &n), n) {
-    double sum = 0;
-    REP(i, 0, n) scanf("%lf", &costs[i]), sum += costs[i];
-    sum = round(sum*100.0/n)/100;
-    double ans1 = 0, ans2 = 0;
-    REP(i, 0, n) {
-      if(costs[i] > sum) {
-        ans1 += costs[i] - sum;
-      } else {
-        ans2 += sum - costs[i];
-      }
-    }
-    printf("$%.2f\n", min(ans1, ans2));
+  int s;
+  generate_twin_primes();
+  while(scanf("%d", &s) == 1) {
+    printf("(%d, %d)\n", twin_primes[s].first, twin_primes[s].second);
   }
   return 0;
 }

@@ -32,21 +32,21 @@ typedef long long ll;
 
 
 int main() {
-  int n;
-  double costs[1024];
-  while(scanf("%d", &n), n) {
-    double sum = 0;
-    REP(i, 0, n) scanf("%lf", &costs[i]), sum += costs[i];
-    sum = round(sum*100.0/n)/100;
-    double ans1 = 0, ans2 = 0;
-    REP(i, 0, n) {
-      if(costs[i] > sum) {
-        ans1 += costs[i] - sum;
-      } else {
-        ans2 += sum - costs[i];
-      }
+  int t, n;
+  scanf("%d", &t);
+  while(t--) {
+    scanf("%d", &n);
+    ll ans = 0;
+    int m = sqrt(n*1.0);
+    int i;
+    for(i=1; i<=m; i++) {       // for(int i=1; i*i<=n; i++) will cause TLE!XS
+      ans += i * (n/i - n/(i+1));
+      // if(i != n/i) ans += (n/i) * (n/(n/i-1) - i + 1);
     }
-    printf("$%.2f\n", min(ans1, ans2));
+    for(i = n/(m+1); i>=1; i--) {
+      ans += n/i;
+    }
+    printf("%lld\n", ans);
   }
   return 0;
 }
