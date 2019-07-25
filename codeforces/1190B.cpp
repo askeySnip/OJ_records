@@ -27,11 +27,28 @@ typedef long long ll;
 #define inf 1e9
 #define REP(i, a, b) for(int i=int(a); i<int(b); i++)
 // data
-
+int n;
+int a[100024];
 
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(0);
-
+  scanf("%d", &n);
+  for(int i=0; i<n; i++) {
+    scanf("%d", &a[i]);
+  }
+  sort(a, a+n);
+  int f = 0;
+  for(int i=0; i<n; i++) {
+    f = f ^ ((a[i] - i) % 2);
+  }
+  int cnt = 0;
+  for(int i=1; i<n; i++) {
+    if(a[i] == a[i-1]) {
+      cnt++;
+      if(a[i] == 0 || (i > 1 && a[i-2] == a[i]-1)) cnt++;
+    }
+  }
+  if(cnt > 1) f = false;
+  if(f) printf("sjfnb\n");
+  else printf("cslnb\n");
   return 0;
 }

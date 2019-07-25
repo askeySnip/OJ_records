@@ -32,6 +32,22 @@ typedef long long ll;
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
-
+  int n;
+  cin >> n;
+  int a, b;
+  int cnt[100024] = {};
+  for(int i=0; i<n-1; i++) {
+    cin >> a >> b;
+    cnt[a]++; cnt[b]++;
+  }
+  bool f = true;
+  for(int i=1; i<=n; i++) {
+    if(cnt[i] == 2) {
+      f = false;
+      break;
+    }
+  }
+  if(f) printf("YES\n");
+  else printf("NO\n");
   return 0;
 }

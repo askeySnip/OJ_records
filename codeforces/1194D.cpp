@@ -30,8 +30,21 @@ typedef long long ll;
 
 
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(0);
-
+  int t, n, k;
+  scanf("%d", &t);
+  while(t--) {
+    scanf("%d%d", &n, &k);
+    bool win = true;
+    if(k % 3) {
+      if(n % 3 == 0) win = false;
+    } else {
+      int x = k / 3 - 1;
+      x = x * 3 + 4;
+      x = n % x;
+      if(x % 3 == 0 && x != k) win = false;
+    }
+    if(win) printf("Alice\n");
+    else printf("Bob\n");
+  }
   return 0;
 }
