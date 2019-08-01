@@ -33,7 +33,7 @@ char s[200048];
 int getAns(int k) {
   for(int i=0; i<k; i++) {
     int cnt = 0;
-    for(int j=0; j<n; j+=k) {
+    for(int j=i; j<n; j+=k) {
       if(s[j] == '1') cnt++;
     }
     if(cnt%2) return 0;
@@ -53,12 +53,19 @@ int main() {
   cin >> n;
   cin >> s;
   map<int, int> mp;
+  bool f = true;
+  for(int i=0; i<n; i++) {
+    if(s[i] == '1') {
+      f = false;
+      break;
+    }
+  }
   for(int i=1; i<n; i++) {
     if(n%i == 0) {
       mp[i] = getAns(i);
     }
   }
-  int ans = 0;
+  int ans = (f ? 1 : 0);
   for(int i=1; i<n; i++) {
     if(n%i == 0) {
       ans += mp[i];

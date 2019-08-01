@@ -30,37 +30,36 @@ typedef long long ll;
 int n, m, k;
 int a[300048];
 ll s[300048];
-ll maxsm[300048];
+ll bst[300048];
+
+ll sum(int l, int r) {
+  l = max(l, 0);
+  return s[r] - (l == 0 ? 0 : s[l-1]);
+}
 
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
   cin >> n >> m >> k;
-  REP(i, 1, n+1) cin >> a[i];
-  s[0] = 0L;
-  REP(i, 1, n+1) {
-    s[i] = s[i-1] + a[i];
+  REP(i, 0, n) {
+    cin >> a[i];
+    s[i] = a[i] + (i == 0 ? 0 : s[i-1]);
   }
-  REP(i, m, n+1) {
-    maxsm[i] = 0L;
-    REP(j, 0, m) {
-      maxsm[i] = max(maxsm[i], s[i-j] - s[i-m]);
-    }
-  }
-  REP(i, m, n+1) cout << s[i] << " ";
-  cout << endl;
-  REP(i, m, n+1) cout << maxsm[i] << " ";
-  cout << endl;
   ll ans = 0;
-  for(int j=m; j<2*m; j++) {
-    ll cur = 0;
-    for(int i=j; i<=n; i+=m) {
-      ll t = cur + (maxsm[i] - k);
-      ans = max(ans, t);
-      cur += s[i] - s[i-m] - k;
-      if(cur < 0L) cur = 0L;
+  for(int len = 1; len <= m && len <= n; len++) {
+    ans = max(ans, sum(0, len-1) - k);
+  }
+  for(int i=0; i<n; i++) {
+    if(i+1 >= m) {
+      ll nbst = sum(i - m + 1, i) - k;
+      if(i - m >= 0) nbst += bst[i - m];
+      bst[i] = max(bst[i], nbst);
+    }
+    for(int len = 0; len < m && i + len < n; len++) {
+      ans = max(ans, bst[i] + sum(i+1, i+len) - k * (len > 0));
     }
   }
+
   cout << ans << endl;
   return 0;
 }
