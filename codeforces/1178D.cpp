@@ -27,32 +27,35 @@ typedef long long ll;
 #define inf 1e9
 #define REP(i, a, b) for(int i=int(a); i<int(b); i++)
 // data
+vi primes;
+bitset<10010> vist;
+int n;
+
+void sieve() {
+  vist.set();
+  vist[0] = vist[1] = 0;
+  for(int i=2; i<10010; i++) {
+    if(vist[i]) {
+      for(int j=i*i; j<10010; j+=i) vist[j] = 0;
+      primes.push_back(i);
+    }
+  }
+}
 
 
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
-  int n, m;
-  cin >> n >> m;
-  REP(i, 0, n/2) {
-    REP(j, 0, m) {
-      printf("%d %d\n", i+1, j+1);
-      printf("%d %d\n", n-i, m-j);
-    }
+  cin >> n;
+  sieve();
+  int m = *lower_bound(primes.begin(), primes.end(), n);
+  cout << m << '\n';
+  cout << "1 " << n << '\n';
+  for(int i=0; i<n-1; i++) {
+    cout << i+1 << ' ' << i+2 << '\n';
   }
-  if(n%2) {
-    int t = n/2+1;
-    deque<int> dq;
-    REP(i, 0, m) {
-      dq.push_back(i+1);
-    }
-    while(!dq.empty()) {
-      printf("%d %d\n", t, dq.front());
-      dq.pop_front();
-      if(!dq.empty()){
-        printf("%d %d\n", t, dq.back());
-        dq.pop_back();}
-    }
+  for(int i=0; i<m-n; i++) {
+    cout << i+1 << ' ' << i+1 + n/2 << '\n';
   }
   return 0;
 }

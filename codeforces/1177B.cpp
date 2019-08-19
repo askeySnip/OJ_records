@@ -27,32 +27,37 @@ typedef long long ll;
 #define inf 1e9
 #define REP(i, a, b) for(int i=int(a); i<int(b); i++)
 // data
-
+ll before(ll n) {
+  ll ret = 0;
+  int cnt = to_string(n).length();
+  int a = 1;
+  ll t = 9, tt = 1;
+  while(cnt > a) {
+    ret += a * t;
+    a++;
+    t *= 10;
+    tt *= 10;
+  }
+  ret += (n - tt) * cnt;
+  return ret;
+}
 
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
-  int n, m;
-  cin >> n >> m;
-  REP(i, 0, n/2) {
-    REP(j, 0, m) {
-      printf("%d %d\n", i+1, j+1);
-      printf("%d %d\n", n-i, m-j);
-    }
+  ll k;
+  cin >> k;
+  ll l = 1, h = k, mid;
+  while(l < h) {
+    mid = (l + h) / 2;
+    if(before(mid+1) >= k) h = mid;
+    else l = mid+1;
   }
-  if(n%2) {
-    int t = n/2+1;
-    deque<int> dq;
-    REP(i, 0, m) {
-      dq.push_back(i+1);
-    }
-    while(!dq.empty()) {
-      printf("%d %d\n", t, dq.front());
-      dq.pop_front();
-      if(!dq.empty()){
-        printf("%d %d\n", t, dq.back());
-        dq.pop_back();}
-    }
+  ll s = before(l+1) - k;
+  while(s > 0) {
+    l/=10;
+    s--;
   }
+  cout << l%10 << endl;
   return 0;
 }

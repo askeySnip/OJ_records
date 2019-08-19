@@ -27,32 +27,33 @@ typedef long long ll;
 #define inf 1e9
 #define REP(i, a, b) for(int i=int(a); i<int(b); i++)
 // data
-
+string s;
+int len;
 
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
-  int n, m;
-  cin >> n >> m;
-  REP(i, 0, n/2) {
-    REP(j, 0, m) {
-      printf("%d %d\n", i+1, j+1);
-      printf("%d %d\n", n-i, m-j);
+  cin >> s;
+  len = s.length();
+  int i = 0, j = len - 1;
+  string a;
+  while(j - i >= 3) {
+    if(s[i] == s[j]) {
+      a.push_back(s[i]);
+      i++; j--;
+    } else if(s[i] == s[j-1]) {
+      a.push_back(s[i]);
+      i++; j-=2;
+    } else {
+      a.push_back(s[i+1]);
+      if(s[i+1] == s[j]) j--;
+      else j-=2;
+      i+=2;
     }
   }
-  if(n%2) {
-    int t = n/2+1;
-    deque<int> dq;
-    REP(i, 0, m) {
-      dq.push_back(i+1);
-    }
-    while(!dq.empty()) {
-      printf("%d %d\n", t, dq.front());
-      dq.pop_front();
-      if(!dq.empty()){
-        printf("%d %d\n", t, dq.back());
-        dq.pop_back();}
-    }
-  }
+  string b = a;
+  if(j >= i) a.push_back(s[i]);
+  reverse(b.begin(), b.end());
+  cout << a << b << endl;
   return 0;
 }
