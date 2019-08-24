@@ -32,6 +32,21 @@ typedef long long ll;
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
-
+  string s;
+  cin >> s;
+  ll ans = 0;
+  int n = s.length();
+  int last = n;
+  for(int i=n-1; i>=0; i--) {
+    int cur = last;
+    for(int k=1; i + 2 * k < cur; k++) {
+      if(s[i] == s[i+k] && s[i+k] == s[i+2*k]) {
+        cur = i + 2 * k;
+      }
+    }
+    ans += n - cur;
+    last = cur;
+  }
+  cout << ans << endl;
   return 0;
 }
