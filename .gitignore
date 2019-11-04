@@ -31,10 +31,14 @@
 *.out
 *.app
 
-#input and output
+# input and output
 *.out*
 *.*~
 \#*#
 *#
 \#*
 *.bak*
+*.in
+
+# vscode config
+.vscode
