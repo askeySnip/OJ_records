@@ -5,7 +5,6 @@ LANG: C++11
 */
 #include <algorithm>
 #include <bitset>
-#include <climits>
 #include <cmath>
 #include <cstdio>
 #include <cstring>
@@ -24,43 +23,35 @@ typedef vector<int> vi;
 typedef pair<int, int> ii;
 typedef vector<pair<int, int> > vii;
 typedef long long ll;
-#define REP(i, a, b) for (int i = int(a); i < int(b); i++)
-const int inf = 1e9;
-const int mod = 1e9 + 7;
 
-int n, p;
-int s[100024];
-ll sm[100024];
+// struct
+#define inf 1e15
+#define REP(i, a, b) for (int i = int(a); i < int(b); i++)
+
+// data
+int n, k, a1, b1, c, d, e1, e2, f;
+int x[100010], y[100010], r[100010], s[100010];
+int a[100010], b[100010];
 
 int solve() {
-  sort(s, s + n);
-  REP(i, 0, n - 1) { s[i] = s[i + 1] - s[i]; }
-  sm[0] = s[0];
-  for (int i = 1; i < n - 1; i++) {
-    sm[i] = sm[i - 1] + s[i];
+  x[1] = a1, y[1] = b1, r[1] = 0, s[1] = 0;
+  REP(i, 2, n + 1) {
+    x[i] = (c * x[i - 1] + d * y[i - 1] + e1) % f;
+    y[i] = (d * x[i - 1] + c * y[i - 1] + e2) % f;
+    r[i] = (c * r[i - 1] + d * s[i - 1] + e1) % 2;
+    s[i] = (d * r[i - 1] + c * s[i - 1] + e2) % 2;
+    a[i] = r[i] == 0 ? x[i] : -x[i];
+    b[i] = s[i] == 0 ? y[i] : -y[i];
   }
-  int ans = 0;
-  int c = 1;
-  for (int i = 0; i < p - 1; i++) {
-    ans += s[i] * c;
-    c++;
-  }
-  int cur = ans - sm[p - 2];
-  for (int i = p - 1; i < n - 1; i++) {
-    cur += s[i] * (p - 1);
-    ans = min(ans, cur);
-    cur -= sm[i] - sm[i - p + 1];
-  }
-  return ans;
 }
 
 int main() {
   int t, kase = 0;
   scanf("%d", &t);
   while (t--) {
-    scanf("%d%d", &n, &p);
-    REP(i, 0, n) scanf("%d", &s[i]);
+    scanf("%d%d%d%d%d%d%d%d%d", &n, &k, &a1, &b1, &c, &d, &e1, &e2, &f);
     printf("Case #%d: %d\n", ++kase, solve());
   }
+
   return 0;
 }

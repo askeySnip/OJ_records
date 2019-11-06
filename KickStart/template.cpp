@@ -3,20 +3,20 @@ ID: leezhen
 TASK: practice
 LANG: C++11
 */
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
 #include <algorithm>
+#include <bitset>
+#include <cmath>
 #include <cstdio>
 #include <cstring>
-#include <set>
-#include <map>
-#include <stack>
-#include <queue>
-#include <cmath>
-#include <bitset>
+#include <fstream>
+#include <iostream>
 #include <list>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
+#include <vector>
 
 using namespace std;
 typedef vector<int> vi;
@@ -26,12 +26,8 @@ typedef long long ll;
 
 // struct
 #define inf 1e9
-#define REP(i, a, b) for(int i = int(a); i < int(b); i++)
+#define REP(i, a, b) for (int i = int(a); i < int(b); i++)
 
 // data
 
-
-int main() {
-
-  return 0;
-}
+int main() { return 0; }
