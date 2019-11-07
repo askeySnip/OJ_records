@@ -23,10 +23,12 @@ typedef vector<int> vi;
 typedef pair<int, int> ii;
 typedef vector<pair<int, int> > vii;
 typedef long long ll;
-
-// struct
+#define mp make_pair
+#define pb push_back
 #define inf 1e9
 #define REP(i, a, b) for (int i = int(a); i < int(b); i++)
+
+// struct
 
 // data
 
