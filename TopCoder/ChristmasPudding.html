@@ -1,0 +1,59 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You have probably heard the phrase "the proof is in the pudding". And if you did hear it, you probably thought that it is nonsense. And if you did think that, you were right. It <i>is</i> nonsense, because this is a distorted version of the original saying: "the proof <i>of</i> the pudding <i>is in the eating</i>". The meaning of this phrase is that you should not judge the quality of something before you experience it.
+</p>
+<p>
+In this problem, we are going to do just that: eat some pudding.
+</p>
+<p>
+There are <b>N</b> different puddings available.
+Some are sweet, some are savory.
+You have three goals:
+</p>
+<ul>
+<li>You want to eat <i>exactly</i> <b>Vall</b> spoons of pudding. If you cannot do that, you will simply eat all the available pudding.</li>
+<li>You want to eat <i>at least</i> <b>Vsweet</b> spoons of sweet pudding. If you cannot do that, you will simply eat all the available sweet pudding.</li>
+<li>Given the previous two goals, you want to maximize your happiness (as explained below).</li>
+</ul>
+<p>
+The puddings are numbered 0 to <b>N</b>-1.
+The volume of pudding i is V[i] spoons.
+The tastiness of pudding i is T[i].
+The value S[i] is 1 if the pudding is sweet and 0 if it's savory.
+</p>
+<p>
+You are allowed to eat as much of each pudding as you like (possibly leaving parts of multiple puddings uneaten).
+Each spoonful of the pudding increases your happiness by its tastiness.
+Compute and return the maximum happiness you can obtain by eating the puddings.
+</p>
+<p>
+Use the pseudocode below to generate the arrays V, T, and S.
+</p>
+<pre>
+V, T, S = Vprefix, Tprefix, Sprefix
+state = seed
+while length(V) &lt; N:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    V.append( 1 + (state modulo 10^6) )
+    state = (state * 1103515245 + 12345) modulo 2^31
+    T.append( 1 + (state modulo 10^6) )
+    state = (state * 1103515245 + 12345) modulo 2^31
+    S.append( (state div 1024) modulo 2 )
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ChristmasPudding</td></tr><tr><td>Method:</td><td>eat</td></tr><tr><td>Parameters:</td><td>int, long long, long long, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;, int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long eat(int N, long long Vall, long long Vsweet, vector &lt;int&gt; Vprefix, vector &lt;int&gt; Tprefix, vector &lt;int&gt; Sprefix, int seed)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Watch out for integer overflows. In particular, we recommend using 64-bit integers when generating the arrays V, T, and S.</td></tr><tr><td align="center" valign="top">-</td><td>The reference solution does not depend on any properties of the pseudorandom generator. It would correctly solve each input that matches the constraints.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 200,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>0 &lt;= <b>Vsweet</b> &lt;= <b>Vall</b> &lt;= 10^12.</td></tr><tr><td align="center" valign="top">-</td><td><b>Vprefix</b>, <b>Tprefix</b> and <b>Sprefix</b> will have the same number of elements.</td></tr><tr><td align="center" valign="top">-</td><td>The number of elements in <b>Vprefix</b> will be between 0 and min(100,<b>N</b>), inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>Vprefix</b> will be between 1 and 1,000,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>Tprefix</b> will be between 1 and 1,000,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>Sprefix</b> will be 0 or 1.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>300</pre></td></tr><tr><td><pre>220</pre></td></tr><tr><td><pre>{100, 100, 200}</pre></td></tr><tr><td><pre>{4, 5, 7}</pre></td></tr><tr><td><pre>{1, 0, 1}</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1880</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+There are three puddings: 100 spoons of sweet pudding with tastiness 4, 100 spoons of savory pudding with tastiness 5, and 200 spoons of sweet pudding with tastiness 7. We want to eat exactly 300 spoons of pudding, out of which at least 220 should be sweet.
+</p>
+<p>
+The optimal solution is to eat 20 spoons of pudding #0, 80 spoons of pudding #1, and 200 spoons of pudding #2. The total happiness we'll gain will be 20*4 + 80*5 + 200*7 = 1880.
+</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>390</pre></td></tr><tr><td><pre>220</pre></td></tr><tr><td><pre>{100, 100, 200}</pre></td></tr><tr><td><pre>{4, 5, 7}</pre></td></tr><tr><td><pre>{1, 0, 1}</pre></td></tr><tr><td><pre>4747</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2260</pre></td></tr><tr><td><table><tr><td colspan="2">The same setting as in Example #0, but now we want to eat a total of 390 spoons of pudding. The optimal solution is to eat 90 spoons of pudding #0, the whole pudding #1, and the whole pudding #2.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>300</pre></td></tr><tr><td><pre>300</pre></td></tr><tr><td><pre>{100, 200, 300}</pre></td></tr><tr><td><pre>{30, 10, 20}</pre></td></tr><tr><td><pre>{0, 1, 0}</pre></td></tr><tr><td><pre>42</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5000</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+We would like to eat exactly 300 spoons of pudding. That can be done. We would also like to eat at least 300 spoons of sweet pudding. That cannot be done, as there are only 200 spoons of sweet pudding. Hence, we will eat all those 200 spoons of sweet pudding (to satisfy our second goal) and also 100 spoons of savory pudding (to satisfy the first goal).
+</p>
+<p>
+The optimal solution is to eat the whole pudding #0 and the whole pudding #1, leaving pudding #2 untouched.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>{47, 10}</pre></td></tr><tr><td><pre>{3, 5}</pre></td></tr><tr><td><pre>{0, 0}</pre></td></tr><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: 191</pre></td></tr><tr><td><table><tr><td colspan="2">We want to eat 100 spoons of pudding, but there are only 47 + 10 = 57 spoons of pudding. Thus, we simply eat all the pudding.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>20</pre></td></tr><tr><td><pre>5000000</pre></td></tr><tr><td><pre>3000000</pre></td></tr><tr><td><pre>{470}</pre></td></tr><tr><td><pre>{407}</pre></td></tr><tr><td><pre>{0}</pre></td></tr><tr><td><pre>4747</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3528114042726</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Use this example to check whether you are generating the input correctly. You should get the following arrays:
+</p>
+<ul>
+<li>V = {470, 262889, 589672, 702899, 546746, 927533, 688636, 441879, 104622, 107313, 754256, 815739, 562274, 293045, 533348, 205407, 310614, 187897, 415160, 748227}</li>
+<li>T = {407, 911298, 378453, 456644, 573439, 754742, 840985, 980824, 401891, 183530, 590749, 234988, 167431, 118622, 322465, 359744, 581611, 868882, 360165, 944980}</li>
+<li>S = {0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0}</li>
+</ul></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
