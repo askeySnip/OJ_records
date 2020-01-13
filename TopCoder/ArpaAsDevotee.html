@@ -1,0 +1,48 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Time in this problem is discrete.
+All timestamps are integers between 0 and 86,400, inclusive.
+</p>
+<p>
+Arpa is a devotee of Mojtaba.
+Mojtaba is often online on Bale (an instant messenger).
+The public profile of a person on this messenger contains the information about the last timestamp when the person was seen online.
+Arpa often comes online and checks this information about Mojtaba.
+</p>
+<p>
+When you come at some time t1 and you check when a person was last online, you are shown a timestamp t2 that satisfies t2 &lt;= t1.
+In particular, if that person is currently online, you are shown the timestamp t2 = t1.
+(You can only check a person that has already been online, so the value you are shown is always defined.)
+</p>
+<p>
+Yesterday, Arpa checked on Mojtaba <b>n</b> times.
+Arpa claims that the vector &lt;int&gt;s <b>a</b> and <b>lastSeen</b> describe what he saw.
+More precisely, Arpa claims that for each i, he checked the messenger at the time <b>a</b>[i] and he obtained the information that Mojtaba was last seen at the time <b>lastSeen</b>[i].
+</p>
+<p>
+As the first part of your solution, check whether the information provided in <b>a</b> and <b>lastSeen</b> is valid.
+If there is any contradiction in the provided data, return an empty vector &lt;string&gt;.
+</p>
+<p>
+Additionally, you are given <b>q</b> queries in the vector &lt;int&gt; <b>t</b>.
+For each timestamp <b>t</b>[j], try to deduce whether Mojtaba was online at that moment.
+Return a vector &lt;string&gt; with <b>q</b> elements.
+For each query, in the order they were given, the return value should contain the string "Yes" if we are sure that Mojtaba was online at the time t[j], the string "No" if we are sure that he was not online, or the string "Not Sure" otherwise.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ArpaAsDevotee</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; solve(int n, int q, vector &lt;int&gt; a, vector &lt;int&gt; lastSeen, vector &lt;int&gt; t)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>q</b> will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>a</b> and <b>lastSeen</b> will have <b>n</b> elements each.</td></tr><tr><td align="center" valign="top">-</td><td><b>t</b> will have <b>q</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>a</b>, <b>lastSeen</b>, and <b>t</b> will be between 0 and 86,400, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>{11, 13, 17, 25, 29}</pre></td></tr><tr><td><pre>{11, 13, 15, 15, 29}</pre></td></tr><tr><td><pre>{11, 12, 13, 14, 15, 16, 17}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;Yes&quot;, &quot;Not Sure&quot;, &quot;Yes&quot;, &quot;Not Sure&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Arpa checked on Mojtaba five times. The timestamps of those checks are 11, 13, 17, 25, and 29.
+</p>
+<p>
+There are seven queries.
+</p>
+<ul>
+<li>We can be sure that Mojtaba was online at time <b>t</b>[0] = 11, <b>t</b>[2] = 13, and also <b>t</b>[4] = 15, as we have explicitly seen the information about these times.</li>
+<li>We have no idea about <b>t</b>[1] = 12 or <b>t</b>[3] = 14. For each of these timestamps both scenarios ("Mojtaba was online" and "Mojtaba was not online") are consistent with our data.</li>
+<li>When Arpa logged in at the time 25, he saw that Mojtaba's most recent appearance online was at time 15. From this we can deduce the answers to the last two queries.</li>
+</ul>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{1, 10}</pre></td></tr><tr><td><pre>{5, 3}</pre></td></tr><tr><td><pre>{6}</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">This is an example of invalid data provided in <b>a</b> and <b>lastSeen</b>. The contradiction here is that the value <b>lastSeen</b>[0] is greater than <b>a</b>[0], which cannot happen.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{7, 7, 1}</pre></td></tr><tr><td><pre>{3, 5, 1}</pre></td></tr><tr><td><pre>{4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The values in <b>a</b> do not have to be distinct.
+But, of course, checking at the same timestamp twice must yield the same answer.
+As that is not satisfied here, these arrays <b>a</b> and <b>lastSeen</b> contain a contradiction and the correct return value is {}.
+</p>
+<p>
+Also note that the values in <b>a</b> are not necessarily sorted.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{5, 5}</pre></td></tr><tr><td><pre>{2, 2}</pre></td></tr><tr><td><pre>{1, 2, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;Not Sure&quot;, &quot;Yes&quot;, &quot;No&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
