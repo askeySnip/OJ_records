@@ -1,0 +1,44 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are playing a game in which you control a spaceship ('v') flying through a tunnel.
+A sample level of the game looks as follows:
+</p>
+<pre>
+##..v..##
+###.....#
+#####...#
+####...##
+###..####
+#.......#
+#...#####
+</pre>
+<p>
+Above, '#' is a part of the tunnel wall and '.' is an empty space in the tunnel.
+At regular intervals, the spaceship makes a step forward (i.e., to the next row of the level).
+Before each step there is enough time to make <b>rate</b> keystrokes.
+There are two keys you can use to control your spaceship: the left and right arrows.
+Each keypress of each arrow moves the spaceship in the corresponding direction (within its current row, by a single step).
+</p>
+<p>
+Is it possible to reach the last row of the level without hitting a wall?
+If no, return -1.
+If yes, return the smallest total number of keystrokes in which it can be done.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Tunnel</td></tr><tr><td>Method:</td><td>minKeystrokes</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int minKeystrokes(vector &lt;string&gt; level, int rate)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>level</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>level</b> will contain between 3 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>All elements of <b>level</b> will contain the same number of characters.</td></tr><tr><td align="center" valign="top">-</td><td>For each i &gt; 0, element i of <b>level</b> will be a <i>valid level row</i>. (A <i>valid level row</i> is a string of the following form: one or more '#' characters, one or more '.' characters, and again one or more '#' characters.)</td></tr><tr><td align="center" valign="top">-</td><td>Element 0 of <b>level</b> will be a valid level row, with one '.' replaced by a 'v'.</td></tr><tr><td align="center" valign="top">-</td><td>The tunnel will be contiguous. I.e., for each i &gt; 0 there will be at least one index j such that neither <b>level</b>[i-1][j] nor <b>level</b>[i][j] is '#'.</td></tr><tr><td align="center" valign="top">-</td><td><b>rate</b> will be between 0 and 47, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;##..v..##&quot;,
+ &quot;###.....#&quot;,
+ &quot;#####...#&quot;,
+ &quot;####...##&quot;,
+ &quot;###..####&quot;,
+ &quot;#.......#&quot;,
+ &quot;#...#####&quot;}</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The example tunnel from the problem statement.
+</p>
+<p>
+One optimal solution looks as follows: right, 3*forward, left, forward, left, 2*forward.
+</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;#.v.#&quot;,
+ &quot;##..#&quot;,
+ &quot;###.#&quot;,
+ &quot;#...#&quot;}</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2">You are not fast enough to press any keys. In this particular tunnel, your spaceship will eventually crash into a wall.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;#v....#&quot;,
+ &quot;###...#&quot;,
+ &quot;#####.#&quot;}</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2">One keystroke before each step is not enough to cross this tunnel.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;#v....#&quot;,
+ &quot;###...#&quot;,
+ &quot;#####.#&quot;}</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;#...v.#&quot;}</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">This level is quite easy.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
