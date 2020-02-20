@@ -1,3 +1,7 @@
+// BEGIN CUT HERE
+
+// END CUT HERE
+#line 5 "StrawberryHard.cpp"
 #include <algorithm>
 #include <bitset>
 #include <cassert>
@@ -21,146 +25,13 @@
 #include <vector>
 using namespace std;
 
-#define error(args...)                       \
-  {                                          \
-    string _s = #args;                       \
-    replace(_s.begin(), _s.end(), ',', ' '); \
-    stringstream _ss(_s);                    \
-    istream_iterator<string> _it(_ss);       \
-    err(_it, args);                          \
-  }
-
-void err(istream_iterator<string> it) {}
-template <typename T, typename... Args>
-void err(istream_iterator<string> it, T a, Args... args) {
-  cerr << *it << " = " << a << endl;
-  err(++it, args...);
-}
-// usage:
-// int a = 4, b = 8, c = 9;
-// error(a, b, c);
-
+typedef vector<int> vi;
+typedef pair<int, int> ii;
+typedef vector<pair<int, int>> vii;
+typedef long long ll;
+#define REP(i, a, b) for (int i = int(a); i < int(b); i++)
+const int inf = 1e9;
 const int MOD = 1e9 + 7;
-struct mod_int {
-  int val;
-
-  mod_int(long long v = 0) {
-    if (v < 0) v = v % MOD + MOD;
-
-    if (v >= MOD) v %= MOD;
-
-    val = v;
-  }
-
-  static int mod_inv(int a, int m = MOD) {
-    // https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Example
-    int g = m, r = a, x = 0, y = 1;
-
-    while (r != 0) {
-      int q = g / r;
-      g %= r;
-      swap(g, r);
-      x -= q * y;
-      swap(x, y);
-    }
-
-    return x < 0 ? x + m : x;
-  }
-
-  explicit operator int() const { return val; }
-
-  mod_int& operator+=(const mod_int& other) {
-    val += other.val;
-    if (val >= MOD) val -= MOD;
-    return *this;
-  }
-
-  mod_int& operator-=(const mod_int& other) {
-    val -= other.val;
-    if (val < 0) val += MOD;
-    return *this;
-  }
-
-  static unsigned fast_mod(uint64_t x, unsigned m = MOD) {
-#if !defined(_WIN32) || defined(_WIN64)
-    return x % m;
-#endif
-    // Optimized mod for Codeforces 32-bit machines.
-    // x must be less than 2^32 * m for this to work, so that x / m fits in a
-    // 32-bit integer.
-    unsigned x_high = x >> 32, x_low = (unsigned)x;
-    unsigned quot, rem;
-    asm("divl %4\n" : "=a"(quot), "=d"(rem) : "d"(x_high), "a"(x_low), "r"(m));
-    return rem;
-  }
-
-  mod_int& operator*=(const mod_int& other) {
-    val = fast_mod((uint64_t)val * other.val);
-    return *this;
-  }
-
-  mod_int& operator/=(const mod_int& other) { return *this *= other.inv(); }
-
-  friend mod_int operator+(const mod_int& a, const mod_int& b) {
-    return mod_int(a) += b;
-  }
-
-  friend mod_int operator-(const mod_int& a, const mod_int& b) {
-    return mod_int(a) -= b;
-  }
-
-  friend mod_int operator*(const mod_int& a, const mod_int& b) {
-    return mod_int(a) *= b;
-  }
-
-  friend mod_int operator/(const mod_int& a, const mod_int& b) {
-    return mod_int(a) /= b;
-  }
-
-  mod_int& operator++() {
-    val = val == MOD - 1 ? 0 : val + 1;
-    return *this;
-  }
-
-  mod_int operator++(int) {
-    mod_int before = *this;
-    ++*this;
-    return before;
-  }
-
-  mod_int& operator--() {
-    val = val == 0 ? MOD - 1 : val - 1;
-    return *this;
-  }
-
-  mod_int operator--(int) {
-    mod_int before = *this;
-    --*this;
-    return before;
-  }
-
-  mod_int operator-() const { return val == 0 ? 0 : MOD - val; }
-
-  bool operator==(const mod_int& other) const { return val == other.val; }
-
-  bool operator!=(const mod_int& other) const { return val != other.val; }
-
-  mod_int inv() const { return mod_inv(val); }
-
-  mod_int pow(long long p) const {
-    assert(p >= 0);
-    mod_int a = *this, result = 1;
-
-    while (p > 0) {
-      if (p & 1) result *= a;
-
-      a *= a;
-      p >>= 1;
-    }
-
-    return result;
-  }
-};
 
 template <typename T>
 T inverse(T a, T m) {
@@ -286,26 +157,19 @@ typedef double dbl;
 
 struct num {
   dbl x, y;
-
   num() { x = y = 0; }
-
   num(dbl x_, dbl y_) : x(x_), y(y_) {}
 };
 
 inline num operator+(num a, num b) { return num(a.x + b.x, a.y + b.y); }
-
 inline num operator-(num a, num b) { return num(a.x - b.x, a.y - b.y); }
-
 inline num operator*(num a, num b) {
   return num(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
 }
-
 inline num conj(num a) { return num(a.x, -a.y); }
 
 int base = 1;
-
 vector<num> roots = {{0, 0}, {1, 0}};
-
 vector<int> rev = {0, 1};
 
 const dbl PI = static_cast<dbl>(acosl(-1.0));
@@ -314,30 +178,18 @@ void ensure_base(int nbase) {
   if (nbase <= base) {
     return;
   }
-
   rev.resize(1 << nbase);
-
   for (int i = 0; i < (1 << nbase); i++) {
     rev[i] = (rev[i >> 1] >> 1) + ((i & 1) << (nbase - 1));
   }
-
   roots.resize(1 << nbase);
-
   while (base < nbase) {
     dbl angle = 2 * PI / (1 << (base + 1));
-
-    //      num z(cos(angle), sin(angle));
-
     for (int i = 1 << (base - 1); i < (1 << base); i++) {
       roots[i << 1] = roots[i];
-
-      //        roots[(i << 1) + 1] = roots[i] * z;
-
       dbl angle_i = angle * (2 * i + 1 - (1 << base));
-
       roots[(i << 1) + 1] = num(cos(angle_i), sin(angle_i));
     }
-
     base++;
   }
 }
@@ -346,28 +198,20 @@ void fft(vector<num>& a, int n = -1) {
   if (n == -1) {
     n = (int)a.size();
   }
-
   assert((n & (n - 1)) == 0);
-
   int zeros = __builtin_ctz(n);
-
   ensure_base(zeros);
-
   int shift = base - zeros;
-
   for (int i = 0; i < n; i++) {
     if (i < (rev[i] >> shift)) {
       swap(a[i], a[rev[i] >> shift]);
     }
   }
-
   for (int k = 1; k < n; k <<= 1) {
     for (int i = 0; i < n; i += 2 * k) {
       for (int j = 0; j < k; j++) {
         num z = a[i + j + k] * roots[j + k];
-
         a[i + j + k] = a[i + j] - z;
-
         a[i + j] = a[i + j] + z;
       }
     }
@@ -380,108 +224,65 @@ vector<int> multiply_mod(const vector<int>& a, const vector<int>& b, int m) {
   if (a.empty() || b.empty()) {
     return {};
   }
-
   int eq = (a.size() == b.size() && a == b);
-
   int need = (int)a.size() + (int)b.size() - 1;
-
   int nbase = 0;
-
   while ((1 << nbase) < need) nbase++;
-
   ensure_base(nbase);
-
   int sz = 1 << nbase;
-
   if (sz > (int)fa.size()) {
     fa.resize(sz);
   }
-
   for (int i = 0; i < (int)a.size(); i++) {
     int x = (a[i] % m + m) % m;
-
     fa[i] = num(x & ((1 << 15) - 1), x >> 15);
   }
-
   fill(fa.begin() + a.size(), fa.begin() + sz, num{0, 0});
-
   fft(fa, sz);
-
   if (sz > (int)fb.size()) {
     fb.resize(sz);
   }
-
   if (eq) {
     copy(fa.begin(), fa.begin() + sz, fb.begin());
-
   } else {
     for (int i = 0; i < (int)b.size(); i++) {
       int x = (b[i] % m + m) % m;
-
       fb[i] = num(x & ((1 << 15) - 1), x >> 15);
     }
-
     fill(fb.begin() + b.size(), fb.begin() + sz, num{0, 0});
-
     fft(fb, sz);
   }
-
   dbl ratio = 0.25 / sz;
-
   num r2(0, -1);
-
   num r3(ratio, 0);
-
   num r4(0, -ratio);
-
   num r5(0, 1);
-
   for (int i = 0; i <= (sz >> 1); i++) {
     int j = (sz - i) & (sz - 1);
-
     num a1 = (fa[i] + conj(fa[j]));
-
     num a2 = (fa[i] - conj(fa[j])) * r2;
-
     num b1 = (fb[i] + conj(fb[j])) * r3;
-
     num b2 = (fb[i] - conj(fb[j])) * r4;
-
     if (i != j) {
       num c1 = (fa[j] + conj(fa[i]));
-
       num c2 = (fa[j] - conj(fa[i])) * r2;
-
       num d1 = (fb[j] + conj(fb[i])) * r3;
-
       num d2 = (fb[j] - conj(fb[i])) * r4;
-
       fa[i] = c1 * d1 + c2 * d2 * r5;
-
       fb[i] = c1 * d2 + c2 * d1;
     }
-
     fa[j] = a1 * b1 + a2 * b2 * r5;
-
     fb[j] = a1 * b2 + a2 * b1;
   }
-
   fft(fa, sz);
-
   fft(fb, sz);
-
   vector<int> res(need);
-
   for (int i = 0; i < need; i++) {
     int64_t aa = llround(fa[i].x);
-
     int64_t bb = llround(fb[i].x);
-
     int64_t cc = llround(fa[i].y);
-
     res[i] = static_cast<int>((aa + ((bb % m) << 15) + ((cc % m) << 30)) % m);
   }
-
   return res;
 }
 
@@ -525,3 +326,132 @@ typename enable_if<is_same<typename Modular<T>::Type, int>::value,
 operator*=(vector<Modular<T>>& a, const vector<Modular<T>>& b) {
   return a = a * b;
 }
+
+// state = seed
+// for i = 0 .. 2*k:
+//     state = (1103515245 * state + 12345)
+//     state = state modulo 2^31
+//     A[i] = state modulo Arange
+//     state = (1103515245 * state + 12345)
+//     state = state modulo 2^31
+//     B[i] = state modulo Brange
+
+class StrawberryHard {
+ public:
+  int competitive(int n, int k, int Arange, int Brange, int seed) {
+    vector<Mint> a(2 * k + 1);
+    vector<Mint> b(2 * k + 1);
+    long long state = seed;
+    Mint sum_a = 0;
+    Mint sum_b = 0;
+    for (int i = 0; i <= 2 * k; i++) {
+      state = 1103515245 * state + 12345;
+      state %= (1LL << 31);
+      a[i] = state % Arange;
+      state = 1103515245 * state + 12345;
+      state %= (1LL << 31);
+      b[i] = state % Brange;
+      sum_a += a[i];
+      sum_b += b[i];
+    }
+    Mint inv_sum_a = 1 / sum_a;
+    Mint inv_sum_b = 1 / sum_b;
+    for (int i = 0; i <= 2 * k; i++) {
+      a[i] *= inv_sum_a;
+      b[i] *= inv_sum_b;
+    }
+    vector<Mint> dp(2 * k + 1, 0);
+    dp[k] = 1;
+    for (int rd = 0; rd < n; rd++) {
+      if (rd % 2 == 0) {
+        dp *= a;
+      } else {
+        dp *= b;
+      }
+      dp.resize(2 * k + 1);
+      reverse(dp.begin(), dp.end());
+    }
+    Mint ans = 0;
+    for (int i = 0; i <= 2 * k; i++) {
+      ans += dp[i];
+    }
+    return ans();
+  }
+
+  // BEGIN CUT HERE
+ public:
+  void run_test(int Case) {
+    if ((Case == -1) || (Case == 0)) test_case_0();
+    if ((Case == -1) || (Case == 1)) test_case_1();
+    if ((Case == -1) || (Case == 2)) test_case_2();
+    if ((Case == -1) || (Case == 3)) test_case_3();
+  }
+
+ private:
+  template <typename T>
+  string print_array(const vector<T>& V) {
+    ostringstream os;
+    os << "{ ";
+    for (typename vector<T>::const_iterator iter = V.begin(); iter != V.end();
+         ++iter)
+      os << '\"' << *iter << "\",";
+    os << " }";
+    return os.str();
+  }
+  void verify_case(int Case, const int& Expected, const int& Received) {
+    cerr << "Test Case #" << Case << "...";
+    if (Expected == Received)
+      cerr << "PASSED" << endl;
+    else {
+      cerr << "FAILED" << endl;
+      cerr << "\tExpected: \"" << Expected << '\"' << endl;
+      cerr << "\tReceived: \"" << Received << '\"' << endl;
+    }
+  }
+  void test_case_0() {
+    int Arg0 = 1;
+    int Arg1 = 3;
+    int Arg2 = 2;
+    int Arg3 = 7;
+    int Arg4 = 0;
+    int Arg5 = 571428576;
+    verify_case(0, Arg5, competitive(Arg0, Arg1, Arg2, Arg3, Arg4));
+  }
+  void test_case_1() {
+    int Arg0 = 6;
+    int Arg1 = 3;
+    int Arg2 = 3;
+    int Arg3 = 3;
+    int Arg4 = 740562;
+    int Arg5 = 1;
+    verify_case(1, Arg5, competitive(Arg0, Arg1, Arg2, Arg3, Arg4));
+  }
+  void test_case_2() {
+    int Arg0 = 7;
+    int Arg1 = 3;
+    int Arg2 = 3;
+    int Arg3 = 3;
+    int Arg4 = 740562;
+    int Arg5 = 753086426;
+    verify_case(2, Arg5, competitive(Arg0, Arg1, Arg2, Arg3, Arg4));
+  }
+  void test_case_3() {
+    int Arg0 = 7;
+    int Arg1 = 5;
+    int Arg2 = 11;
+    int Arg3 = 13;
+    int Arg4 = 47;
+    int Arg5 = 931930680;
+    verify_case(3, Arg5, competitive(Arg0, Arg1, Arg2, Arg3, Arg4));
+  }
+
+  // END CUT HERE
+};
+
+// BEGIN CUT HERE
+int main() {
+  StrawberryHard ___test;
+  ___test.run_test(-1);
+  system("pause");
+}
+// END CUT HERE
