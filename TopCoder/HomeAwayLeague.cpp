@@ -155,20 +155,16 @@ struct mod_int {
 
 class HomeAwayLeague {
  public:
-  vector<mod_int> mem;
   int matches(int x) {
     mod_int ans = 1;
     for (int i = x; i > x / 2; i--) ans *= i;
-    mem.assign(x / 2 + 1, -1);
+    vector<mod_int> mem(x / 2 + 1);
     // Derangements with formula D(x) = (x - 1) * (D(x - 1) + D(x - 2));
-    ans *= dp(x / 2);
+    mem[1] = 0, mem[2] = 1;
+    for (int i = 3; i <= x / 2; i++)
+      mem[i] = (i - 1) * (mem[i - 1] + mem[i - 2]);
+    ans *= mem[x / 2];
     return (int)ans;
-  }
-  mod_int dp(mod_int x) {
-    if (x == 1) return 0;
-    if (x == 2) return 1;
-    if (mem[x.val] != -1) return mem[x.val];
-    return (x - 1) * (dp(x - 1) + dp(x - 2));
   }
 
   // BEGIN CUT HERE
