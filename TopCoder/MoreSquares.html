@@ -1,0 +1,37 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Given a set of points in the plane, its <i>square count</i> is the number of ways in which we can select four of those points in such a way that they form the corners of a square.
+The square may be rotated arbitrarily. Order of the four points does not matter. For example, the square count for the set { (1,2), (1,0), (0,1), (2,1) } is 1.
+</p>
+
+<p>
+You are given a set S of points in the plane with integer coordinates.
+Return the number of points P with the following property: P is not in S, and if we add P to S, the square count will increase.
+</p>
+
+<p>
+In order to keep the input size small, S is given as follows:
+You are given the ints <b>N</b>, <b>SX</b>, <b>SY</b>, and the vector &lt;int&gt;s <b>Xprefix</b> and <b>Yprefix</b>.
+Use the pseudocode given below to generate S.
+</p>
+
+<pre>
+X, Y = two empty arrays of length N each
+L    = length(Xprefix)
+
+for i = 0 .. L-1:
+    X[i] = Xprefix[i]
+    Y[i] = Yprefix[i]
+
+for i = L .. N-1:
+    X[i] = ( X[i-1] * 47 + 42 ) modulo SX
+    Y[i] = ( Y[i-1] * 47 + 42 ) modulo SY
+
+for i = 0 .. N-1:
+    if (X[i], Y[i]) is not in S:
+        add (X[i], Y[i]) to S
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MoreSquares</td></tr><tr><td>Method:</td><td>countLocations</td></tr><tr><td>Parameters:</td><td>int, int, int, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countLocations(int N, int SX, int SY, vector &lt;int&gt; Xprefix, vector &lt;int&gt; Yprefix)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution would work fast enough for any input of the given size, it does not depend on any properties of the pseudorandom generator.</td></tr><tr><td align="center" valign="top">-</td><td>The new point P can lie anywhere in the plane.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 3,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>SX</b> and <b>SY</b> will each be between 1 and 10^6, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Xprefix</b> will have between 1 and min(100,<b>N</b>) elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Yprefix</b> will have the same number of elements as <b>Xprefix</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>Xprefix</b> will be between 0 and <b>SX</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>Yprefix</b> will be between 0 and <b>SY</b>-1, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>{3, 0, 2}</pre></td></tr><tr><td><pre>{0, 1, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">The set S contains the points (3,0), (0,1), and (2,2). By adding a fourth point at (1,-1) we can increase the square count from 0 to 1.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>{47, 47, 47, 47, 47}</pre></td></tr><tr><td><pre>{47, 47, 47, 47, 47}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">The set S contains only one point: (47, 47). Adding a second point will always produce a two-element set with square count zero.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>23</pre></td></tr><tr><td><pre>11</pre></td></tr><tr><td><pre>13</pre></td></tr><tr><td><pre>{7}</pre></td></tr><tr><td><pre>{0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The set S contains 20 points. In the order of insertion, these are: (7, 0), (8, 3), (0, 1), (9, 11), (3, 0), (7, 3), (8, 1), (0, 11), (9, 0), (3, 3), (7, 1), (8, 11), (0, 0), (9, 3), (3, 1), (7, 11), (8, 0), (0, 3), (9, 1), (3, 11). The last three points generated using the formula in the statement are (7, 0), (8, 3), and (0, 1) again.
+</p>
+<p>
+The five possible locations for the new point that increases the square count are (6, 2), (8, -1), (8, 2), (10, 2), and (11, 8).
+</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
