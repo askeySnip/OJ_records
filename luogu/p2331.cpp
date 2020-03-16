@@ -40,6 +40,8 @@ int main() {
   if (m == 1) {
     int x;
     REP(i, 1, n + 1) scanf("%d", &x), s1[i] = s1[i - 1] + x;
+    for (int i = 0; i <= n; i++)
+      for (int j = 1; j <= n; j++) dp[i][j] = -inf;
     for (int k = 1; k <= K; k++) {
       for (int i = 1; i <= n; i++) {
         dp[i][k] = dp[i - 1][k];
@@ -52,10 +54,14 @@ int main() {
     int x, y;
     for (int i = 1; i <= n; i++)
       scanf("%d%d", &x, &y), s1[i] = s1[i - 1] + x, s2[i] = s2[i - 1] + y;
-    for(int k=1; k<=K; k++){ 
-      for(int i=1; i<=n; i++) {
-        for(int j=1; j<=n; j++) {
-          f[i][j][k] = max(f[i-1][j][k], f[i][j-1][k]);
+    for (int i = 0; i <= n; i++)
+      for (int j = 0; j <= n; j++)
+        for (int k = 1; k <= K; k++) f[i][j][k] = -inf;
+
+    for (int k = 1; k <= K; k++) {
+      for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+          f[i][j][k] = max(f[i - 1][j][k], f[i][j - 1][k]);
           for (int l = 0; l < i; l++)
             f[i][j][k] = max(f[i][j][k], f[l][j][k - 1] + s1[i] - s1[l]);
           for (int l = 0; l < j; l++)
