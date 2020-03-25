@@ -1,0 +1,38 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Teja's college is organizing a tournament in the card game Literature.
+Teja wanted to take part in the tournament, so he formed a team with Vinay and Sohail.
+They wanted to practice for the tournament, but no other team wanted to play them - the teams didn't want to leak their strategies before the tournament.
+But Teja did not give up.
+He decided that they will practice on their own, and he came up with a game that will help them train their memory.
+</p>
+<p>
+The practice game is played with 3*<b>N</b> cards.
+The cards are numbered from 1 to 3*<b>N</b>, inclusive.
+At the beginning of the game, the cards are shuffled and each player takes <b>N</b> of them.
+</p>
+<p>
+The game is played in turns.
+The turns are numbered starting from 0.
+The players take the turns in the cyclic order "Teja, Vinay, Sohail".
+That is, Teja takes turn 0, Vinay takes turn 1, Sohail takes turn 2, Teja takes turn 3, and so on.
+</p>
+<p>
+In each turn, the player selects an arbitrary one of the 2*<b>N</b> cards they <i>don't</i> have, and makes a true statement "I don't have the card number X."
+</p>
+<p>
+You are given the int <b>N</b>.
+You are also given the vector &lt;int&gt; <b>Teja</b> with <b>N</b> elements: the numbers on Teja's cards.
+Finally, you are given the vector &lt;int&gt; <b>history</b>. There have already been size(<b>history</b>) turns. In turn i the active player announced that he does not have the card number <b>history</b>[i].
+</p>
+<p>
+Teja remembers everything that was said during the game.
+Compute and return the smallest nonnegative X such that it is possible that after X more turns Teja will know the exact distribution of all cards.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>LiteratureOptimal</td></tr><tr><td>Method:</td><td>minTurns</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int minTurns(int N, vector &lt;int&gt; Teja, vector &lt;int&gt; history)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Teja</b> will contain exactly <b>N</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>Teja</b> will be between 1 and 3*<b>N</b>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>All elements of <b>Teja</b> will be distinct.</td></tr><tr><td align="center" valign="top">-</td><td><b>history</b> will contain between 0 and 200 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>history</b> will be between 1 and 3*<b>N</b>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Elements of <b>history</b> will correspond to a valid game.</td></tr><tr><td align="center" valign="top">-</td><td>In particular, for each valid i, <b>history</b>[3*i] will never be one of Teja's cards.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{1,4}</pre></td></tr><tr><td><pre>{}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2">Here, <b>history</b> is empty, so we are at the beginning of the game. The most optimistic scenario is that Teja will learn everything in five turns. Here is one possible way how that can happen:
+<ul>
+<li>Turn 0: Teja announces that he does not have card 6.</li>
+<li>Turn 1: Vinay announces that he also does not have card 6. (At this moment, Teja knows that Sohail must have card 6.)</li>
+<li>Turn 2: Sohail announces that he does not have card 2.</li>
+<li>Turn 3: Teja announces that he does not have card 3.</li>
+<li>Turn 4: Vinay announces that he does not have card 5.</li>
+</ul>
+After these five turns Teja can conclude that Vinay must have cards 2 and 3, while Sohail has cards 5 and 6.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{1,4}</pre></td></tr><tr><td><pre>{6,6,2,3,5,1,5,6}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">This time the players already took eight turns of the game. The first five turns are the same as in Example #0. Teja already knows everything, so he does not need any additional turns.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{3,6}</pre></td></tr><tr><td><pre>{1,3,3,1,3,3,1,3,6,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">Here, the other two people did not give Teja any useful information because they always mentioned his cards. Thus, the answer is almost the same as in Example #0. Only one thing is different: In this game, Teja took the last turn, so the next turn will be taken by Vinay. Therefore, only four extra turns (Vinay, Sohail, Teja, and Vinay again) are needed in this case.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
