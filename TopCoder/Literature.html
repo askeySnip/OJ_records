@@ -1,0 +1,44 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Teja's college is organizing a tournament in the card game Literature.
+Teja wanted to take part in the tournament, so he formed a team with Vinay and Sohail.
+They wanted to practice for the tournament, but no other team wanted to play them - the teams didn't want to leak their strategies before the tournament.
+But Teja did not give up.
+He decided that they will practice on their own, and he came up with a game that will help them train their memory.
+</p>
+<p>
+The practice game is played with 3*<b>N</b> cards.
+The cards are numbered from 1 to 3*<b>N</b>, inclusive.
+At the beginning of the game, the cards are shuffled and each player takes <b>N</b> of them.
+</p>
+<p>
+The game is played in turns.
+The turns are numbered starting from 0.
+The players take the turns in the cyclic order "Teja, Vinay, Sohail".
+That is, Teja takes turn 0, Vinay takes turn 1, Sohail takes turn 2, Teja takes turn 3, and so on.
+</p>
+<p>
+In each turn, the player selects a random element X from the set of the 2*<b>N</b> cards they <i>don't</i> have, and makes a true statement "I don't have the card number X."
+</p>
+<p>
+Teja remembers everything that was said during the game.
+Vinay and Sohail are really bad at the game.
+They can take valid turns, but they never remember anything the other players said.
+</p>
+<p>
+You are given the int <b>N</b>.
+You are also given the vector &lt;int&gt; <b>Teja</b> with <b>N</b> elements: the numbers on Teja's cards.
+Finally, you are given the vector &lt;int&gt; <b>history</b>. There have already been size(<b>history</b>) turns. In turn i the active player announced that he does not have the card number <b>history</b>[i].
+</p>
+<p>
+Compute and return the expected number of turns from the beginning of the game to the moment when Teja knew the exact distribution of all cards.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Literature</td></tr><tr><td>Method:</td><td>expectation</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>double</td></tr><tr><td>Method signature:</td><td>double expectation(int n, vector &lt;int&gt; Teja, vector &lt;int&gt; history)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>All random choices are made with uniform probabilities. All random events are mutually independent.</td></tr><tr><td align="center" valign="top">-</td><td>Your return value must have an absolute or a relative error at most 1e-9.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>Teja</b> will contain exactly <b>N</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>Teja</b> will be between 1 and 3*<b>N</b>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>All elements of <b>Teja</b> will be distinct.</td></tr><tr><td align="center" valign="top">-</td><td><b>history</b> will contain between 0 and 200 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>history</b> will be between 1 and 3*<b>N</b>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Elements of <b>history</b> will correspond to a valid game.</td></tr><tr><td align="center" valign="top">-</td><td>In particular, for each valid i, <b>history</b>[3*i] will never be one of Teja's cards.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{3}</pre></td></tr><tr><td><pre>{1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3.333333333333333</pre></td></tr><tr><td><table><tr><td colspan="2"><p>There has already been one turn. With probability 1/2 there will be exactly one more turn. This happens if the number announced by Vinay in the next turn is not 3, and the probability of that event is exactly 1/2, because Vinay is announcing one of two cards he does not have (chosen uniformly at random). In other scenarios the game will take more than one turn.</p><p> The final answer is the sum over all possible scenarios of (the probability of that particular scenario) times (the number of turns it took Teja to learn everything in that particular scenario).</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>{1,4}</pre></td></tr><tr><td><pre>{3,1,6,6,2,5,2,4,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6.0</pre></td></tr><tr><td><table><tr><td colspan="2">Teja has cards 1 and 4.
+There have already been nine turn of the game. The first few of them look as follows:
+<ul>
+<li>Turn 0: Teja announced that he does not have card 3.</li>
+<li>Turn 1: Vinay announced that he does not have card 1. (Teja already knew this, as this is one of his cards.)</li>
+<li>Turn 2: Sohail announced that he does not have card 6. (Teja can deduce that Vinay has card 6.)</li>
+<li>Turn 3: Teja announced that he does not have card 6.</li>
+<li>Turn 4: Vinay announced that he does not have card 2.</li>
+<li>Turn 5: Sohail announced that he does not have card 5. After this turn, Teja already knows everything: Vinay's cards are {5, 6} and Sohail's cards are {2, 3}.</li>
+</ul>
+Thus, the expected number of turns from the beginning of the game to the moment when Teja knew the exact distribution of all cards is always exactly 6. The future rounds do not matter in this case.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>{5,29,12,16,25,17,18,30,27,10}</pre></td></tr><tr><td><pre>{4,6,5,23,22,29,20,8,12,3,13,16,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 133.0880654696573</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
