@@ -1,0 +1,36 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Hero is fighting against a monster.
+The monster has <b>hp</b> hit points.
+This means that the monster will die when Hero deals it a total of <b>hp</b> damage or more.
+</p>
+<p>
+Hero's basic attack deals <b>attack</b> points of damage.
+He has two things that can help him defeat the monster: a special passive skill and a magic scroll.
+</p>
+<p>
+Hero has <b>level</b> skill points in the skill.
+The skill gradually increases the amount of damage he deals when attacking the monster multiple times.
+More precisely, each attack after the first one will deal M more points of damage than the previous one, where M = (<b>level</b> percent of <b>attack</b>).
+</p>
+<p>
+The magic scroll can only be used once.
+The scroll activates a spell that will affect the next <b>duration</b> attacks.
+During each of these attacks Hero deals not just regular damage (calculated as explained above) but also magical damage.
+The amount of magical damage is always exactly four times the amount of regular damage.
+</p>
+<p>
+One attack takes one second.
+Activating the scroll also takes one second (and during that second Hero cannot attack).
+Return the smallest number of seconds needed to kill the monster.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>FightMonsterDiv1</td></tr><tr><td>Method:</td><td>fightTime</td></tr><tr><td>Parameters:</td><td>long long, long long, int, long long</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long fightTime(long long hp, long long attack, int level, long long duration)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>hp</b> will be between 1 and 10<sup>12</sup>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>attack</b> will be between 100 and 10<sup>12</sup>, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>attack</b> will be a multiple of 100.</td></tr><tr><td align="center" valign="top">-</td><td><b>level</b> will be between 0 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>duration</b> will be between 1 and 10<sup>12</sup>, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>201</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>10</pre></td></tr><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Hero can just attack. The first attack will deal 100 damage, the second one will deal 110 damage, and the monster will be defeated.
+</p>
+<p>
+Alternately, Hero can read the scroll and then deal 100 regular + 400 magical = 500 damage in a single attack.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>74900</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 742</pre></td></tr><tr><td><table><tr><td colspan="2">Here is one optimal solution:
+<ol>
+<li>Attack the monster 9 times, each time dealing 100 damage. (Total: 9 seconds, 900 damage.)</li>
+<li>Read the scroll. (Total: 10 seconds, 900 damage.)</li>
+<li>Attack the monster twice with the bonus from the spell, each time dealing 500 damage. (Total: 12 seconds, 1900 damage.)</li>
+<li>Attack the monster another 730 times, each time only dealing 100 damage again. (Total: 742 seconds, 74900 damage.)</li>
+</ol></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1000000000000</pre></td></tr><tr><td><pre>1000000000000</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>1000000000000</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1338</pre></td></tr><tr><td><pre>100</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
