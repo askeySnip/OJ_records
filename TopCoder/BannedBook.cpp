@@ -34,41 +34,35 @@ const int mod = 1e9 + 7;
 
 class BannedBook {
  public:
-  int n;
-  vector<vi> adj;
+  vector<int> vist;
+
   vector<int> passAround(vector<string> friends) {
-    vi ans;
-    n = friends.size();
-    adj.assign(n, vi(0));
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        if (i == j) continue;
-        if (friends[i][j] == 'Y') adj[i].push_back(j);
-      }
-    }
-    vi vist(n, 0);
+    int n = friends.size();
+    vist.assign(n, 0);
+
+    vector<int> ans;
     REP(i, 0, n) {
-      if (!vist[i]) {
-        dfs_first(i, vist, ans);
-      }
+      if (!vist[i]) dfs_first(i, ans, friends);
     }
     return ans;
   }
-  void dfs_first(int u, vi &vist, vi &ans) {
+  void dfs_last(int u, vector<int> &ans, vector<string> &friends) {
     vist[u] = 1;
-    ans.push_back(u);
-    REP(i, 0, adj[u].size()) {
-      int v = adj[u][i];
-      if (!vist[v]) dfs_last(v, vist, ans);
+    for (int i = 0; i < friends.size(); i++) {
+      if (vist[i] || friends[u][i] == 'N') continue;
+      vist[i] = 1;
+      dfs_first(i, ans, friends);
     }
+    ans.push_back(u);
   }
-  void dfs_last(int u, vi &vist, vi &ans) {
+  void dfs_first(int u, vector<int> &ans, vector<string> &friends) {
     vist[u] = 1;
-    REP(i, 0, adj[u].size()) {
-      int v = adj[u][i];
-      if (!vist[v]) dfs_first(v, vist, ans);
-    }
     ans.push_back(u);
+    for (int i = 0; i < friends.size(); i++) {
+      if (vist[i] || friends[u][i] == 'N') continue;
+      vist[i] = 1;
+      dfs_last(i, ans, friends);
+    }
   }
 
   // BEGIN CUT HERE
@@ -140,6 +134,9 @@ class BannedBook {
 int main() {
   BannedBook ___test;
   ___test.run_test(-1);
+<<<<<<< Updated upstream
   system("pause");
+=======
+>>>>>>> Stashed changes
 }
 // END CUT HERE

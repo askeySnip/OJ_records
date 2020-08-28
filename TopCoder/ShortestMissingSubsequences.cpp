@@ -182,6 +182,9 @@ class ShortestMissingSubsequences {
 int main() {
   ShortestMissingSubsequences ___test;
   ___test.run_test(-1);
+<<<<<<< Updated upstream
   system("pause");
+=======
+>>>>>>> Stashed changes
 }
 // END CUT HERE
