@@ -53,7 +53,69 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
                        {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
 
 // struct
+class FenwickTree {
+ private:
+  vector<ll> ft;
 
+ public:
+  FenwickTree(int n) { ft.assign(n + 1, 0); }
+  void add(int k, ll v) {
+    for (; k < ft.size(); k += k & (-k)) {
+      ft[k] += v;
+    }
+  }
+
+  ll sum(int k) {
+    ll ret = 0;
+    for (; k; k -= k & (-k)) {
+      ret += ft[k];
+    }
+    return ret;
+  }
+};
 // data
+int n, q;
 
-int main() { return 0; }
+void solve() {
+  FenwickTree a(n), b(n);
+  vi val(n + 1);
+  char type[2];
+  int x, v, l, r;
+  REP(i, 1, n + 1) {
+    getI(v);
+    if (i % 2 == 0) v = -v;
+    a.add(i, 1LL * v * i);
+    b.add(i, 1LL * v);
+    val[i] = v;
+  }
+  ll ans = 0;
+  REP(i, 0, q) {
+    getS(type);
+    if (type[0] == 'U') {
+      getII(x, v);
+      if (x % 2 == 0) v = -v;
+      a.add(x, 1LL * (v - val[x]) * x);
+      b.add(x, 1LL * (v - val[x]));
+      val[x] = v;
+    } else {
+      getII(l, r);
+      ll t1 = a.sum(r) - a.sum(l - 1);
+      ll t2 = b.sum(r) - b.sum(l - 1);
+      ll t = t1 - t2 * (l - 1);
+      if (l % 2 == 0) t = -t;
+      ans += t;
+    }
+  }
+  printf("%lld\n", ans);
+}
+
+int main() {
+  int t, kase = 0;
+  getI(t);
+  while (t--) {
+    getII(n, q);
+    printf("Case #%d: ", ++kase);
+    solve();
+  }
+  return 0;
+}
