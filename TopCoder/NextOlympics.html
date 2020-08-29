@@ -1,0 +1,40 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Tokyo Olympics 2021 is scheduled to start from the opening ceremony in July 23rd, 2021.
+</p>
+<br></br>
+<p>
+Suzuki, a man who lives in Japan, is looking forward to seeing the opening ceremony.<br></br>
+Now, he wants to calculate how many days are remaining to the opening ceremony.
+(For example, if the opening ceremony were tomorrow, there would be 1 day remaining.)
+</p>
+<br></br>
+<p>
+Today's date is given as a string <b>today</b> in the format "YYYY.MM.DD". Day and month numbers have an extra leading zero if necessary. Some examples:<br></br>
+<ul>
+<li>If today's date is July 24th, 2020, <b>today</b> will be "2020.07.24".</li>
+<li>If today's date is November 9th, 2020, <b>today</b> will be "2020.11.09".</li>
+<li>If today's date is February 25th, 2021, <b>today</b> will be "2021.02.25".</li>
+</ul>
+</p>
+<br></br>
+<p>
+For Suzuki, calculate and return how many days are remaining to the opening ceremony of Tokyo Olympics 2021.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>NextOlympics</td></tr><tr><td>Method:</td><td>countDays</td></tr><tr><td>Parameters:</td><td>string</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countDays(string today)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>In this problem, you will implement the class "NextOlympics" with a <i>public</i> function named "countDays" which takes a string <b>today</b> as a parameter and returns an integer value.</td></tr><tr><td align="center" valign="top">-</td><td>If you do not know about how to compete or how to write/compile/test/submit solutions, please refer to https://www.topcoder.com/community/competitive-programming/how-to-compete for detailed information about competing in SRM.</td></tr><tr><td align="center" valign="top">-</td><td>And, don't forget testing at least on the example cases! In Applet Arena, you can test all example cases at once using "Batch Test". In Web Arena, you can test all example cases by checking all of them in the Test Panel.</td></tr><tr><td align="center" valign="top">-</td><td>For testing on custom cases or attempting challenges in the Challenge Phase, the string you input should be enclosed in double quotes (""). For example, you can input "2020.07.24" including the quotes.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>The string <b>today</b> will represent a valid date (in Gregorian Calendar) from July 24th 2020 to July 23rd 2021, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;2020.07.24&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 364</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+TopCoder SRM 788 is taking place in July 24th, 2020. Here, Tokyo Olympics 2021 is less than one year from now!<br></br>
+Given this, 364 days are remaining to the opening ceremony of the Olympics.<br></br>
+<br></br>
+By the way, July 24th, 2020 is a holiday in Japan called "Sports Day". It's a holiday to celebrate the Olympics.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;2020.11.09&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 256</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+In this example, "today" is November 9th, 2020. Here, 256 days are remaining until the Olympics begin.<br></br>
+So, you should return 256 for this example. Suzuki has to wait 256 days for the opening ceremony.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;2021.02.25&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 148</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+In this example, "today" is February 25th, 2021. Here, 148 days are remaining until the opening ceremony.<br></br>
+Suzuki has to wait 148 days for the opening ceremony.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;2021.07.23&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+In this example, "today" is July 23rd, 2021. It's the day of the opening ceremony of the Tokyo Olympics 2021.<br></br>
+For this case, since there are 0 days remaining to the opening ceremony, you should return 0.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;2020.12.31&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 204</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+In this example, "today" is December 31st, 2020. There are 204 days remaining to the opening ceremony.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;2021.01.01&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 203</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+In this example, "today" is January 1st, 2021. There are 203 days remaining to the opening ceremony.
+</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

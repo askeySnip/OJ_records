@@ -1,0 +1,40 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+TopCity is a square-shaped city. When we divide the city into <b>N</b> rows and <b>N</b> columns, you can see that the city is divided into <b>N</b><sup>2</sup> districts. We will number both the rows and the columns starting from 0, and we 
+will say that district (i, j) is the square in row i and column j.<br></br>
+In TopCity, districts have various cultures. For each district, a positive integer is assigned to represent its <i>culture</i>. The <i>culture</i> of district (i, j) is represented by the integer <b>A</b>[i*<b>N</b>+j].
+</p>
+<br></br>
+<p>
+You are initially at district (0, 0). You will go to district (<b>N</b>-1, <b>N</b>-1) by repeatedly moving between cells which share an edge, using a <b>shortest route</b>.
+</p>
+<br></br>
+<p>
+The similarity of cultures of different districts can be measured by computing the greatest common divisor (GCD, see Notes for definition) of their individual culture values.<br></br>
+The similarity of cultures on your route is the similarity of all districts that lie on the route, including districts (0, 0) and (<b>N</b>-1, <b>N</b>-1).<br></br>
+Find and return the largest possible similarity of cultures on a valid route from (0, 0) to (<b>N</b>-1, <b>N</b>-1).
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>SquareCityWalking</td></tr><tr><td>Method:</td><td>largestGCD</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int largestGCD(int N, vector &lt;int&gt; A)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>GCD (Greatest Common Divisors) means the largest positive integer which divides all given values. For example, the GCD of {91, 169, 130} is 13, because 13 divides all three given integers, but there is no larger value which divides all three given integers.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 25.</td></tr><tr><td align="center" valign="top">-</td><td>The length of <b>A</b> will be exactly <b>N</b>*<b>N</b>.</td></tr><tr><td align="center" valign="top">-</td><td><b>A</b>[i] will be between 1 and 100.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{ 96, 42, 45,
+  32, 36, 27,
+  40, 54, 84 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2"><p>In this example, there are six possible routes that you may pass. The <i>culture value</i> of districts you pass for each possibility, will be following:</p>
+<ul>
+<li>96 --> 42 --> 45 --> 27 --> 84 (The GCD will be 3)</li>
+<li>96 --> 42 --> 36 --> 27 --> 84 (The GCD will be 3)</li>
+<li>96 --> 42 --> 36 --> 54 --> 84 (The GCD will be 6)</li>
+<li>96 --> 32 --> 36 --> 27 --> 84 (The GCD will be 1)</li>
+<li>96 --> 32 --> 36 --> 54 --> 84 (The GCD will be 2)</li>
+<li>96 --> 32 --> 40 --> 54 --> 84 (The GCD will be 2)</li>
+</ul>
+<p>Hence, the maximum possible GCD will be 6, and that's why you need to return 6 for this example.</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{ 4, 9, 2,
+  3, 5, 7,
+  8, 1, 6 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"><p>In this example, there are six possible routes, but for all of them, the GCD of <i>culture value</i> of districts you pass will be 1.</p>
+<p>So, the maximum possible GCD of <i>culture value</i> of districts you pass is 1.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{ 54, 81, 27, 36,
+  48, 64, 96, 72,
+  84, 60, 45, 99,
+  80, 90, 40, 63 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 9</pre></td></tr><tr><td><table><tr><td colspan="2"><p>In this example, it is optimal to move as (0, 0) --> (0, 1) --> (0, 2) --> (0, 3) --> (1, 3) --> (2, 3) --> (3, 3), and the GCD of their <i>culture values</i> will be 9.</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{ 47 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 47</pre></td></tr><tr><td><table><tr><td colspan="2"><p>Please note that there is a case which <b>N</b> is equal to 1. The GCD of "just 47" is, of course, 47.</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{ 100,  80,  64,  48,  36,
+   75,  10,  10,  10,  48,
+   50,  10,  10,  10,  64,
+   25,  10,  10,  10,  80,
+    5,  25,  50,  75, 100 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2"><p>In this example, one of the optimal route is (0, 0) --> (0, 1) --> (1, 1) --> (1, 2) --> (2, 2) --> (2, 3) --> (3, 3) --> (3, 4) --> (4, 4), and the GCD of their <i>culture values</i> will be 10.</p>
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
