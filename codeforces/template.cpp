@@ -3,19 +3,25 @@ ID: leezhen
 TASK: practice
 LANG: C++11
 */
+#include <assert.h>
 #include <algorithm>
 #include <bitset>
 #include <cmath>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
-#include <fstream>
+#include <deque>
 #include <iostream>
-#include <list>
+#include <iterator>
 #include <map>
+#include <new>
 #include <queue>
 #include <set>
+#include <sstream>
 #include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 using namespace std;
@@ -34,17 +40,31 @@ typedef long long ll;
 #define getS(x) scanf("%s", x)
 #define clr(a, x) memset(a, x, sizeof(a))
 #define char2Int(c) (c - '0')
-#define SZ(x) ((int)((x).size()))
-#define ALL(c) (c).begin(), (c).end()
+#define sz(x) ((int)((x).size()))
+#define all(c) (c).begin(), (c).end()
 #define mp make_pair
 #define pb push_back
-#define fi first
-#define se second
+#define eb emplace_back
+#define ff first
+#define ss second
 // for debug
-inline void pisz(int n) { printf("%d\n", n); }
-#define DBG(vari) cerr << #vari << " = " << (vari) << endl;
-#define printA(a, L, R) FE(i, L, R) cout << a[i] << (i == R ? '\n' : ' ')
-#define printV(a) printA(a, 0, a.size() - 1)
+#define what_is(x) \
+  cerr << "Line " << __LINE__ << ": " << #x << " is " << (x) << endl;
+#define error(args...)                       \
+  {                                          \
+    string _s = #args;                       \
+    replace(_s.begin(), _s.end(), ',', ' '); \
+    stringstream _ss(_s);                    \
+    istream_iterator<string> _it(_ss);       \
+    err(_it, args);                          \
+  }
+
+template <typename T, typename... Args>
+void err(istream_iterator<string> it, T a, Args... args) {
+  cerr << *it << " = " << a << endl;
+  err(++it, args...);
+}
+
 #define REP(i, a, b) for (int i = int(a); i < int(b); i++)
 const int inf = 0x3f3f3f3f;
 const int mod = 1e9 + 7;
