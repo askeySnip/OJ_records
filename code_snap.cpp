@@ -1,25 +1,15 @@
-#include <algorithm>
-#include <bitset>
-#include <cassert>
-#include <cmath>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <ctime>
-#include <deque>
-#include <functional>
-#include <iomanip>
-#include <iostream>
-#include <list>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <set>
-#include <sstream>
-#include <stack>
-#include <utility>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define ull unsigned long long
+#define all(x) x.begin(), x.end()
+#define mem(x, y) memset(x, y, sizeof(x))
+#define suf_zero(x) __builtin_ffs(x)
+#define pre_zero(x) __builtin_clz(x)
+#define num_one(x) __builtin_popcount(x)
+
+#define what_is(x) \
+  cerr << "Line " << __LINE__ << ": " << #x << " is " << (x) << endl;
 
 #define error(args...)                       \
   {                                          \
@@ -30,10 +20,10 @@ using namespace std;
     err(_it, args);                          \
   }
 
-void err(istream_iterator<string> it) {}
+void err(istream_iterator<string> it) { cerr << endl; }
 template <typename T, typename... Args>
 void err(istream_iterator<string> it, T a, Args... args) {
-  cerr << *it << " = " << a << endl;
+  cerr << *it << " = " << a << " , ";
   err(++it, args...);
 }
 // usage:
