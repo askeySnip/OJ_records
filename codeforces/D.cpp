@@ -66,7 +66,7 @@ void err(istream_iterator<string> it, T a, Args... args) {
 }
 
 #define REP(i, a, b) for (int i = int(a); i < int(b); i++)
-const int inf = 0x3f3f3f3f;
+const ll inf = 0x3f3f3f3f3f3f;
 const int mod = 1e9 + 7;
 const int fx[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
@@ -75,5 +75,33 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 // struct
 
 // data
+int r, g, b;
+int rr[210], gg[210], bb[210];
+ll f[210][210][210];
 
-int main() { return 0; }
+ll dp(int i, int j, int k) {
+  if (i > r || j > g || k > b) return -inf;
+  int c = 0;
+  if (i == r) c++;
+  if (j == g) c++;
+  if (k == b) c++;
+  if (c >= 2) return 0;
+  if (f[i][j][k] != 0) return f[i][j][k];
+  f[i][j][k] = dp(i + 1, j + 1, k) + rr[i] * gg[j];
+  f[i][j][k] = max(f[i][j][k], dp(i + 1, j, k + 1) + rr[i] * bb[k]);
+  f[i][j][k] = max(f[i][j][k], dp(i, j + 1, k + 1) + gg[j] * bb[k]);
+  return f[i][j][k];
+}
+
+int main() {
+  getIII(r, g, b);
+  REP(i, 0, r) getI(rr[i]);
+  REP(i, 0, g) getI(gg[i]);
+  REP(i, 0, b) getI(bb[i]);
+  sort(rr, rr + r, greater<int>());
+  sort(gg, gg + g, greater<int>());
+  sort(bb, bb + b, greater<int>());
+  memset(f, 0, sizeof f);
+  printf("%lld\n", dp(0, 0, 0));
+  return 0;
+}

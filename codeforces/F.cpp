@@ -58,7 +58,7 @@ typedef long long ll;
     istream_iterator<string> _it(_ss);       \
     err(_it, args);                          \
   }
-void err(istream_iterator<string> it) { cerr << endl; }
+
 template <typename T, typename... Args>
 void err(istream_iterator<string> it, T a, Args... args) {
   cerr << *it << " = " << a << endl;
@@ -75,5 +75,51 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 // struct
 
 // data
+const int N = 1000010;
+int n;
+char s[N];
+vi p[2][N];
+int cxt[2][N];
 
-int main() { return 0; }
+int main() {
+  getI(n);
+  getS(s);
+  for (int i = n - 1; i >= 0; i--) {
+    if (s[i] != '0') cxt[0][i] = cxt[0][i + 1] + 1;
+    if (s[i] != '1') cxt[1][i] = cxt[1][i + 1] + 1;
+  }
+  REP(i, 0, 2) {
+    int l = 0;
+    while (l < n) {
+      if (s[l] == char(i + '0')) {
+        ++l;
+        continue;
+      }
+      int r = l + 1;
+      while (r < n && s[r] != char('0' + i)) ++r;
+      for (int len = 1; len <= r - l; len++) {
+        p[i][len].push_back(l);
+      }
+      l = r;
+    }
+  }
+  printf("%d ", n);
+  REP(i, 2, n + 1) {
+    int pos = 0, ans = 0;
+    int p0 = 0, p1 = 0;
+    while (pos < n) {
+      int npos = inf;
+      if (cxt[0][pos] >= i) npos = pos + i;
+      if (cxt[1][pos] >= i) npos = pos + i;
+      while (p0 < sz(p[0][i]) && pos > p[0][i][p0]) ++p0;
+      if (p0 < sz(p[0][i])) npos = min(npos, p[0][i][p0] + i);
+      while (p1 < sz(p[1][i]) && pos > p[1][i][p1]) ++p1;
+      if (p1 < sz(p[1][i])) npos = min(npos, p[1][i][p1] + i);
+      if (npos != inf) ++ans;
+      pos = npos;
+    }
+    printf("%d ", ans);
+  }
+  printf("\n");
+  return 0;
+}

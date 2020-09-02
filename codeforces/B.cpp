@@ -76,4 +76,31 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 
 // data
 
-int main() { return 0; }
+int main() {
+  int t;
+  char s[110];
+  getI(t);
+  while (t--) {
+    getS(s);
+    int n = strlen(s);
+    vector<int> a;
+    int cnt = 0;
+    for (int i = 0; i < n; i++) {
+      if (s[i] == '0') {
+        if (cnt) a.push_back(cnt);
+        cnt = 0;
+      } else {
+        ++cnt;
+      }
+    }
+    if (cnt) a.push_back(cnt);
+    sort(a.begin(), a.end(), greater<int>());
+
+    int ans = 0;
+    REP(i, 0, a.size()) {
+      if (i % 2 == 0) ans += a[i];
+    }
+    printf("%d\n", ans);
+  }
+  return 0;
+}

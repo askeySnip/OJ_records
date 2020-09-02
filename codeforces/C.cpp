@@ -76,4 +76,24 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 
 // data
 
-int main() { return 0; }
+int main() {
+  int t;
+  char s[100010];
+  getI(t);
+  while (t--) {
+    int n;
+    getI(n);
+    getS(s);
+    ll ans = 0;
+    map<int, int> d{{0, 1}};
+    int sum = 0;
+    REP(i, 0, n) {
+      sum += char2Int(s[i]);
+      int x = sum - i - 1;
+      ++d[x];
+      ans += d[x] - 1;
+    }
+    printf("%lld\n", ans);
+  }
+  return 0;
+}

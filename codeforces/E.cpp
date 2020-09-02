@@ -75,5 +75,58 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 // struct
 
 // data
+int n;
+set<int> sdouble;
+ll sum[2];
+set<int> s[2];
+int cntdouble[2];
 
-int main() { return 0; }
+void upd(int id) {
+  int x = *s[id].rbegin();
+  if (id == 1) x = *s[id].begin();
+  bool d = sdouble.count(x);
+  sum[id] -= x, sum[!id] += x;
+  s[id].erase(x), s[!id].insert(x);
+  cntdouble[id] -= d, cntdouble[!id] += d;
+}
+
+int main() {
+  getI(n);
+  REP(i, 0, n) {
+    int tp, x;
+    getII(tp, x);
+    if (x > 0) {
+      sum[0] += x;
+      s[0].insert(x);
+      cntdouble[0] += tp;
+      if (tp) sdouble.insert(x);
+    } else {
+      x = -x;
+      int id = 0;
+      if (s[1].count(x)) id = 1;
+      sum[id] -= x;
+      s[id].erase(x);
+      cntdouble[id] -= tp;
+      if (tp) {
+        sdouble.erase(x);
+      }
+    }
+
+    int sumd = cntdouble[0] + cntdouble[1];
+    while (s[1].size() < sumd) upd(0);
+    while (s[1].size() > sumd) upd(1);
+    while (s[1].size() > 0 && s[0].size() > 0 &&
+           *s[0].rbegin() > *s[1].begin()) {
+      upd(0);
+      upd(1);
+    }
+
+    ll ans = sum[0] + sum[1] * 2;
+    if (cntdouble[1] == sumd && sumd > 0) {
+      ans -= *s[1].begin();
+      if (s[0].size() > 0) ans += *s[0].rbegin();
+    }
+    printf("%lld\n", ans);
+  }
+  return 0;
+}

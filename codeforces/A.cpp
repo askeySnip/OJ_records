@@ -75,5 +75,19 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 // struct
 
 // data
+int a[50010];
 
-int main() { return 0; }
+int main() {
+  int t;
+  getI(t);
+  while (t--) {
+    int n;
+    getI(n);
+    REP(i, 0, n) getI(a[i]);
+    if (a[0] + a[1] <= a[n - 1])
+      printf("1 2 %d\n", n);
+    else
+      printf("-1\n");
+  }
+  return 0;
+}
