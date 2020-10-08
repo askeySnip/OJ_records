@@ -65,7 +65,7 @@ class shared_ptr {
   }
 
   long use_count() const noexcept {
-    if(ptr_) {
+    if (ptr_) {
       return shared_count_->get_count();
     }
     return 0;
