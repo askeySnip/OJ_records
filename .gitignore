@@ -39,6 +39,8 @@
 \#*
 *.bak*
 *.in
+in*.txt
+ans*.txt
 
 # vscode config
 .vscode
