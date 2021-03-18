@@ -1,6 +1,6 @@
 /*
-AUTHOR: $%U%$
-CREATED: $%D%$.$%M%$.$%Y%$ $%h%$:$%m%$:$%s%$
+AUTHOR: lz.askey
+CREATED: 18.03.2021 12:45:37
 LANG: C++11
 */
 #include <assert.h>
@@ -79,5 +79,25 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
+  int t, n;
+  cin >> t;
+  vi d, m;
+  while (t--) {
+    cin >> n;
+    d.clear(), m.clear();
+    int x, y;
+    REP(i, 0, 2 * n) {
+      cin >> x >> y;
+      if (x == 0) m.push_back(abs(y));
+      if (y == 0) d.push_back(abs(x));
+    }
+    double ans = 0;
+    sort(all(d)), sort(all(m));
+    REP(i, 0, n) {
+      ans += sqrt(1ll * m[i] * m[i] + 1ll * d[i] * d[i]);
+      // error(m[i], d[i], ans);
+    }
+    printf("%.15f\n", ans);
+  }
   return 0;
 }

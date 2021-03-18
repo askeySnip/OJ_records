@@ -1,6 +1,6 @@
 /*
-AUTHOR: $%U%$
-CREATED: $%D%$.$%M%$.$%Y%$ $%h%$:$%m%$:$%s%$
+AUTHOR: lz.askey
+CREATED: 18.03.2021 12:45:37
 LANG: C++11
 */
 #include <assert.h>
@@ -67,7 +67,7 @@ void err(istream_iterator<string> it, T a, Args... args) {
 
 #define REP(i, a, b) for (int i = int(a); i < int(b); i++)
 const int inf = 0x3f3f3f3f;
-const int mod = 1e9 + 7;
+const int mod = 998244353;
 const int fx[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
                        {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
@@ -75,9 +75,79 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 // struct
 
 // data
+int n, m;
+struct Edge {
+  int to, next;
+} e[510 << 2];
+int head[510], tot;
+int dis[510][510], Ans[510][510];
+queue<int> q;
+
+void add_edge(int from, int to) {
+  e[++tot] = {to, head[from]};
+  head[from] = tot;
+  e[++tot] = {from, head[to]};
+  head[to] = tot;
+}
+
+void get_dis(int s) {
+  REP(i, 1, n + 1) dis[s][i] = 0;
+  q.push(s);
+  dis[s][s] = 1;
+  while (!q.empty()) {
+    int t = q.front();
+    q.pop();
+    for (int i = head[t]; i; i = e[i].next) {
+      if (!dis[s][e[i].to]) {
+        dis[s][e[i].to] = dis[s][t] + 1;
+        q.push(e[i].to);
+      }
+    }
+  }
+}
+
+void solve() {
+  REP(i, 1, n + 1) { get_dis(i); }
+  for (int x = 1; x <= n; x++) {
+    for (int y = x; y <= n; y++) {
+      int cnt = 0;
+      for (int i = 1; i <= n; i++) {
+        if (dis[x][i] + dis[y][i] - 1 == dis[x][y]) ++cnt;
+      }
+      ll ans = 1;
+      if (cnt > dis[x][y]) ans = 0;
+      for (int i = 1; i <= n; i++) {
+        if (dis[x][i] + dis[y][i] - 1 != dis[x][y]) {
+          int flag = 0;
+          for (int j = head[i]; j; j = e[j].next) {
+            if (dis[x][e[j].to] == dis[x][i] - 1 &&
+                dis[y][e[j].to] == dis[y][i] - 1) {
+              ++flag;
+            }
+          }
+          ans = ans * flag % mod;
+          if (!ans) break;
+        }
+      }
+      Ans[x][y] = Ans[y][x] = ans;
+    }
+  }
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= n; j++) {
+      printf("%d%c", Ans[i][j], " \n"[j == n]);
+    }
+  }
+}
 
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
+  cin >> n >> m;
+  int a, b;
+  REP(i, 0, m) {
+    cin >> a >> b;
+    add_edge(a, b);
+  }
+  solve();
   return 0;
 }

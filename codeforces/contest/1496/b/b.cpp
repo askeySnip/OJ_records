@@ -1,6 +1,6 @@
 /*
-AUTHOR: $%U%$
-CREATED: $%D%$.$%M%$.$%Y%$ $%h%$:$%m%$:$%s%$
+AUTHOR: lz.askey
+CREATED: 18.03.2021 12:45:37
 LANG: C++11
 */
 #include <assert.h>
@@ -79,5 +79,34 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
+  int t;
+  cin >> t;
+  int n, k;
+  vi a;
+  while (t--) {
+    cin >> n >> k;
+    a.resize(n);
+    REP(i, 0, n) cin >> a[i];
+    sort(all(a));
+    unique(all(a));
+    int mex = a.size(), cnt = a.size();
+    REP(i, 0, a.size()) if (i != a[i]) {
+      mex = i;
+      break;
+    }
+    // REP(i, 0, a.size()) error(a[i]);
+    if (mex == a.size())
+      cout << (cnt + k) << "\n";
+    else {
+      if (k) {
+        int t = (a.back() + mex + 1) / 2;
+        REP(i, 0, a.size()) {
+          if (a[i] == t) cnt -= 1;
+        }
+        cnt += 1;
+      }
+      cout << cnt << "\n";
+    }
+  }
   return 0;
 }

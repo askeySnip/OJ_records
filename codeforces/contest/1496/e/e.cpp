@@ -1,6 +1,6 @@
 /*
-AUTHOR: $%U%$
-CREATED: $%D%$.$%M%$.$%Y%$ $%h%$:$%m%$:$%s%$
+AUTHOR: lz.askey
+CREATED: 18.03.2021 12:45:37
 LANG: C++11
 */
 #include <assert.h>
@@ -75,9 +75,31 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 // struct
 
 // data
+int n, m;
+char s[510][510];
+
+void solve() {
+  for (int i = 1 + (m % 3 == 0); i <= m;) {
+    for (int j = 1; j <= n; j++) s[j][i] = 'X';
+    i += 3;
+    if (i > m) break;
+    int p = 1;
+    if (n == 1 || (s[2][i - 1] != 'X' && s[2][i - 2] != 'X'))
+      p = 1;
+    else
+      p = 2;
+    s[p][i - 1] = s[p][i - 2] = 'X';
+  }
+  REP(i, 1, n + 1) { puts(s[i] + 1); }
+}
 
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(nullptr);
+  int t;
+  gi(t);
+  while (t--) {
+    gii(n, m);
+    REP(i, 0, n) gs(s[i + 1] + 1);
+    solve();
+  }
   return 0;
 }

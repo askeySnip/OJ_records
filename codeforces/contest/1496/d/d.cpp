@@ -1,6 +1,6 @@
 /*
-AUTHOR: $%U%$
-CREATED: $%D%$.$%M%$.$%Y%$ $%h%$:$%m%$:$%s%$
+AUTHOR: lz.askey
+CREATED: 18.03.2021 12:45:37
 LANG: C++11
 */
 #include <assert.h>
@@ -75,9 +75,52 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 // struct
 
 // data
+int n;
+vi p;
 
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
+  cin >> n;
+  p.resize(n);
+  REP(i, 0, n) cin >> p[i];
+  vi t;
+  int l = 0, r = 1;
+  while (r < n) {
+    // int a = 0, b = 0;
+    while (r < n && p[r] > p[r - 1]) r++;
+    t.push_back(r - l);
+    // a = r - l;
+    l = r - 1;
+    while (r < n && p[r] < p[r - 1]) r++;
+    t.push_back(r - l);
+    // b = r - l;
+    l = r - 1;
+    // if(a%2 && b%2) ans.push_back(max(a, b));
+  }
+  // REP(i, 0, t.size()) error(t[i]);
+  int mx = 0, cnt = 0;
+  for(int i=0; i<(int)t.size(); i+=2) {
+    if(mx < max(t[i], t[i+1])) {
+      mx = max(t[i], t[i+1]);
+      cnt = 1;
+    } else if(mx == max(t[i], t[i+1])) {
+      ++cnt;
+    }
+  }
+  // error(mx, cnt);
+  if(cnt > 1) {
+    printf("0\n");
+  } else {
+    for(int i=0; i<(int)t.size(); i+=2) {
+      if(max(t[i], t[i+1]) == mx) {
+        if(t[i]%2 && t[i+1] == t[i]) {
+          printf("1\n");
+        } else {
+          printf("0\n");
+        }
+      }
+    }
+  }
   return 0;
 }

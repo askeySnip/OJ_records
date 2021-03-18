@@ -1,6 +1,6 @@
 /*
-AUTHOR: $%U%$
-CREATED: $%D%$.$%M%$.$%Y%$ $%h%$:$%m%$:$%s%$
+AUTHOR: lz.askey
+CREATED: 18.03.2021 12:45:37
 LANG: C++11
 */
 #include <assert.h>
@@ -79,5 +79,26 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
+  int t;
+  cin >> t;
+  int n, k;
+  string s;
+  while (t--) {
+    cin >> n >> k;
+    cin >> s;
+    if (k == 0) {
+      puts("YES");
+      continue;
+    }
+    bool f = true;
+    REP(i, 0, k) {
+      if(s[i] != s[n-i-1]) {
+        f = false;
+        break;
+      }
+    }
+    if(f && 2 * k < n) puts("YES");
+    else puts("NO");
+  }
   return 0;
 }
