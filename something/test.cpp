@@ -27,30 +27,56 @@ const int mod = 1e9 + 7;
 // struct
 
 // data
-ll n;
 
-void solve() {
-  string s = to_string(n);
-  int len = s.length();
-  reverse(s.begin(), s.end());
-  int f[20][2]{0};
-  f[0][0] = s[0] - '0';
-  if(s[0] != '9') f[0][1] = s[0] - '0' + 10;
-  else f[0][1] = 0;
-  for(int i=1; i<len; i++) {
-    f[i][1] = max(s[i] == '9' ? 0 : f[i-1][0] + s[i] - '0' + 10, f[i-1][1] + s[i] - '0' + 9);
-    f[i][0] = max(f[i-1][0] + s[i] - '0', s[i] == '0' ? 0 : f[i-1][1] + s[i] - '0' - 1);
+vector<vector<int>> e;
+vector<int> vist;
+vector<int> ans;
+bool flag;
+
+void dfs(int u) {
+  // cout << u << endl;
+  vist[u] = 1;
+  for (auto v : e[u]) {
+    if (vist[v] == 2)
+      continue;
+    else if (vist[v] == 1) {
+      flag = true;
+      return;
+    } else
+      dfs(v);
   }
-  printf("%d\n", f[len-1][0]);
+  ans.push_back(u);
+  vist[u] = 2;
+}
+
+vector<int> topo(vector<vector<int>>& dep, int n) {
+  e.clear();
+  e.resize(n);
+  vist.assign(n, 0);
+  flag = false;
+  ans.clear();
+  for (auto& d : dep) {
+    e[d[0]].push_back(d[1]);
+  }
+  for (int i = 0; i < n; i++) {
+    if (!vist[i]) dfs(i);
+    if (flag) return {};
+  }
+  // cout << ans.size() << endl;
+  reverse(ans.begin(), ans.end());
+  return ans;
 }
 
 int main() {
-  int t;
-  scanf("%d", &t);
-  // t = 1;
-  while (t--) {
-    scanf("%lld", &n);
-    solve();
-  }
+  vector<vector<int>> dep = {{0, 1}, {1, 2}, {2, 3}};
+  vector<int> tmp = topo(dep, 4);
+  REP(i, 0, tmp.size()) cout << tmp[i] << " ";
+  cout << endl;
+  vector<vector<int>> dep1 = {{0, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 3}};
+  cout << topo(dep1, 5).size() << endl;
+  vector<vector<int>> dep2 = {{0, 1}, {1, 2}, {2, 3}, {3, 4}, {5, 6}, {6, 3}};
+  tmp = topo(dep2, 7);
+  REP(i, 0, tmp.size()) cout << tmp[i] << " ";
+  cout << endl;
   return 0;
 }

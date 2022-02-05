@@ -1,9 +1,10 @@
 /*
 AUTHOR: $%U%$
 CREATED: $%D%$.$%M%$.$%Y%$ $%h%$:$%m%$:$%s%$
-LANG: C++11
+LANG: C++14
 */
 #include <assert.h>
+
 #include <algorithm>
 #include <bitset>
 #include <cmath>
