@@ -1,7 +1,7 @@
 /*
 ID: leezhen
 TASK: practice
-LANG: C++11
+LANG: C++14
 */
 #include <assert.h>
 
@@ -80,5 +80,58 @@ const int fxx[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
+  int t;
+  cin >> t;
+  while (t--) {
+    int n, m, k;
+    cin >> n >> m >> k;
+    string a, b, ans;
+    cin >> a >> b;
+    sort(all(a), greater<char>());
+    sort(all(b), greater<char>());
+    int id = 0, cnt = 0;
+    while (!a.empty() && !b.empty()) {
+      if (cnt == k) {
+        if (id)
+          ans += a.back(), a.pop_back(), id = 0;
+        else
+          ans += b.back(), b.pop_back(), id = 1;
+        cnt = 1;
+        continue;
+      }
+      if (a.back() < b.back()) {
+        ans += a.back();
+        a.pop_back();
+        if (id == 0)
+          ++cnt;
+        else
+          cnt = 1, id = 0;
+      } else if (a.back() > b.back()) {
+        ans += b.back();
+        b.pop_back();
+        if (id)
+          ++cnt;
+        else
+          cnt = 1, id = 1;
+      } else {
+        if (a.size() < b.size()) {
+          if (id)
+            cnt = 1, id = 0;
+          else
+            ++cnt;
+          ans += a.back();
+          a.pop_back();
+        } else {
+          if (id)
+            ++cnt;
+          else
+            cnt = 1, id = 1;
+          ans += b.back();
+          b.pop_back();
+        }
+      }
+    }
+    cout << ans << "\n";
+  }
   return 0;
 }
